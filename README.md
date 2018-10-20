@@ -1,2 +1,2 @@
 # Wooby
-Just another anime app, for students™
+Just another anime app, for students 👌
