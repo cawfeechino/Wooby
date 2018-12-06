@@ -1,5 +1,6 @@
 package com.example.dkale.wooby;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.nfc.Tag;
 import android.support.annotation.NonNull;
@@ -47,12 +48,20 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = mAuth.getCurrentUser();
                 if(user != null){
                     Log.e(TAG,"User is valid. Email: " + user.getEmail() + " Display Name: " + user.getDisplayName());
-                    mDisplayname = user.getDisplayName();
+
+                    String displayName = user.getDisplayName();
+                    if(displayName != null){
+                        mDisplayname = displayName;
+                    }
+                    else{
+                        mDisplayname = "Unknown Display Name";
+                    }
                 }
                 else{
                     Log.e(TAG,"There is no valid user logged on");
                     mDisplayname = "Null";
-
+                    Intent signIn = new Intent(getApplicationContext(), SignIn.class);
+                    startActivity(signIn);
                 }
             }
         };
