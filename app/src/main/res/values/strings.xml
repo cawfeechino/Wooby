@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Wooby</string>
+    <string name="logout">Log Out</string>
 </resources>
