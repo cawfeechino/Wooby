@@ -38,6 +38,8 @@ public class SignIn extends AppCompatActivity {
 
     Button mLoginButton;
     TextView mRegisterText;
+    TextView invalidUser;
+    TextView passwordConfirm;
 
     boolean mLoginInProgress = false;
     boolean mRegisterInProgress = false;
@@ -60,14 +62,17 @@ public class SignIn extends AppCompatActivity {
         mPasswordText = (EditText) findViewById(R.id.passwordEdit);
         mConfirmPasswordText = (EditText) findViewById(R.id.confirmPasswordEdit);
         mDisplayNameText = (EditText) findViewById(R.id.displayNameEdit);
-
+        invalidUser = (TextView) findViewById(R.id.invalidUserView);
         mLoginButton = (Button) findViewById(R.id.logonButton);
         mRegisterText = (TextView) findViewById(R.id.registerText);
+        passwordConfirm = (TextView) findViewById(R.id.passwordConfirmText);
 
         mEmailText.setVisibility(View.GONE);
         mPasswordText.setVisibility(View.GONE);
         mConfirmPasswordText.setVisibility(View.GONE);
         mDisplayNameText.setVisibility(View.GONE);
+        invalidUser.setVisibility(View.GONE);
+        passwordConfirm.setVisibility(View.GONE);
     }
 
     private void initListeners() {
@@ -91,8 +96,18 @@ public class SignIn extends AppCompatActivity {
                     ;// Login button has been hit again
                     String email = mEmailText.getText().toString();
                     String password = mPasswordText.getText().toString();
+                    if(email.matches("") || password.matches("")){
+                        if(email.matches("")){
+                            mEmailText.setHint("Input an Email");
+                        }
+                        if(password.matches("")){
+                            mPasswordText.setHint("Input a Password");
+                        }
+                     }
+                    else{
+                        loginUser(email, password);
+                    }
 
-                    loginUser(email, password);
                 }
             }
         });
@@ -109,7 +124,7 @@ public class SignIn extends AppCompatActivity {
                     mPasswordText.setVisibility(View.VISIBLE);
                     mConfirmPasswordText.setVisibility(View.VISIBLE);
                     mDisplayNameText.setVisibility(View.VISIBLE);
-
+                    mLoginButton.setVisibility(View.GONE);
                     mRegisterInProgress = true;
                 } else {
 
@@ -119,8 +134,25 @@ public class SignIn extends AppCompatActivity {
                     String confirmPassword = mConfirmPasswordText.getText().toString();
                     // Validate password/password confirm here
                     mDisplayName = mDisplayNameText.getText().toString();
-
-                    registerUser(email, password);
+                    if(email.matches("") || password.matches("") || confirmPassword.matches("")){
+                        if(email.matches("")){
+                            mEmailText.setHint("Input an Email");
+                        }
+                        if(password.matches("")){
+                            mPasswordText.setHint("Input a Password");
+                        }
+                        if(confirmPassword.matches("")){
+                            mConfirmPasswordText.setHint("Confirm Password");
+                        }
+                    }
+                    else {
+                        if (password.equals(confirmPassword)) {
+                            passwordConfirm.setVisibility(View.GONE);
+                            registerUser(email, password);
+                        } else {
+                            passwordConfirm.setVisibility(View.VISIBLE);
+                        }
+                    }
                 }
             }
         });
@@ -181,10 +213,13 @@ public class SignIn extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if (task.isSuccessful())
+                if (task.isSuccessful()) {
                     Log.e(TAG, "SignIn : User logged on ");
-                else
+                }
+                else {
                     Log.e(TAG, "SignIn : User log on response, but failed ");
+                    invalidUser.setVisibility(View.VISIBLE);
+                }
             }
         };
 

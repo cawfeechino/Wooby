@@ -2,8 +2,10 @@ package com.example.dkale.wooby;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import static com.google.firebase.auth.FirebaseAuth.getInstance;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ChatMessageFragment.OnFragmentInteractionListener{
     final String TAG = "FirebaseTest";
 
     FirebaseApp mApp;
@@ -36,13 +38,15 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth.AuthStateListener mAuthListener;
     String mDisplayName;
     TextView mScreenMessage;
+    ViewPager mViewPager;
+    FragmentAdapter mFragmentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initFirebase();
+        initViewPager();
     }
 
     private void initFirebase() {
@@ -110,7 +114,15 @@ public class MainActivity extends AppCompatActivity {
             mAuth.signOut();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+    private void initViewPager(){
+        mViewPager = (ViewPager) findViewById(R.id.viewPager);
+        mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mFragmentAdapter);
+    }
+
+    public void onFragmentInteraction(Uri uri){
+        Log.e(TAG,"Fragment Interaction Listener");
     }
 }
