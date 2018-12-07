@@ -5,15 +5,18 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dkale.wooby.dummy.DummyContent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -29,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import static com.google.firebase.auth.FirebaseAuth.getInstance;
 
-public class MainActivity extends AppCompatActivity implements ChatMessageFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements ChatMessageFragment.OnFragmentInteractionListener, HistoryFragment.OnListFragmentInteractionListener, ToWatchFragment.OnListFragmentInteractionListener, Suggestion.OnFragmentInteractionListener{
     final String TAG = "FirebaseTest";
 
     FirebaseApp mApp;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
     TextView mScreenMessage;
     ViewPager mViewPager;
     FragmentAdapter mFragmentAdapter;
+    TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,9 +124,20 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mFragmentAdapter);
+        mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     public void onFragmentInteraction(Uri uri){
         Log.e(TAG,"Fragment Interaction Listener");
+    }
+    public void onHistoryListFragmentInteraction(DummyContent.DummyItem item){
+        Log.e(TAG,"History Fragment");
+    }
+    public void onToWatchListFragmentInteraction(DummyContent.DummyItem item){
+        Log.e(TAG,"To Watch Fragment");
+    }
+    public void onSuggestionFragmentInteraction(Uri uri){
+        Log.e(TAG,"Suggestion Interaction Listener");
     }
 }
