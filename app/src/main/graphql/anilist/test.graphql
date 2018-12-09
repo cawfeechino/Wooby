@@ -5,6 +5,7 @@ query test($genre: [String!], $score: Int!, $sort: [MediaSort!]) {
       title {romaji, english}
       averageScore
       description
+      genre
     }
   }
 }
