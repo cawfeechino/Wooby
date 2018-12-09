@@ -1,0 +1,11 @@
+query highestScore($sort: [MediaSort] = SCORE_DESC) {
+  Page {
+    media(sort: $sort) {
+      id
+      title {
+        romaji
+      }
+      averageScore
+    }
+  }
+}
