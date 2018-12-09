@@ -5,6 +5,7 @@ query test($genre: [String] = ["hentai"], $score: Int = 60, $sort: [MediaSort] =
       title {
         romaji
       }
+      genres
       averageScore
     }
   }

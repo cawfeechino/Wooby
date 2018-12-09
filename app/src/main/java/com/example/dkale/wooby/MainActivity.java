@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
                 for(int x = 0; x < anime.Page().media().size(); x++){
                     buffer.append("id: " + anime.Page().media().get(x).id());
                     buffer.append("title: " + anime.Page().media().get(x).title());
+                    buffer.append("genres: " + anime.Page().media().get(x).genres());
                     buffer.append("averageScore: " + anime.Page().media().get(x).averageScore());
                     buffer.append("\n~~~~~~~~~~~");
                     buffer.append("\n\n");

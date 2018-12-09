@@ -5,6 +5,7 @@ query highestScore($sort: [MediaSort] = SCORE_DESC) {
       title {
         romaji
       }
+      genres
       averageScore
     }
   }
