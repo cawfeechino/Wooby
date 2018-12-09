@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
             Log.e(TAG,"Logout selected");
 
             mAuth.getInstance().signOut();
-            
+
             return true;
         }
         return super.onOptionsItemSelected(item);
