@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +30,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
+
+
+import fr.tkeunebr.gravatar.Gravatar;
 
 import static com.google.firebase.auth.FirebaseAuth.getInstance;
 
@@ -44,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
     ViewPager mViewPager;
     FragmentAdapter mFragmentAdapter;
     TabLayout mTabLayout;
+    FirebaseDatabase mDatabase;
+    ImageView mAvatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,15 +71,12 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
 
                 FirebaseUser user = mAuth.getCurrentUser();
                 if (user != null) {
-                    Log.e(TAG,"AUTH STATE UPDATE : Valid user logged in [" + user.getEmail() + "] [" + user.getDisplayName() + "]" );
+                    Log.e(TAG,"AUTH STATE UPDATE : Valid user logged in [" + user.getEmail() + "]" );
+                    mScreenMessage = (TextView) findViewById(R.id.userName);
+                    mScreenMessage.setText(user.getEmail());
+                    initGravatars();
 
-//                    String displayName = user.getDisplayName().toString();
-//                    mScreenMessage.setText("User : " + displayName);
 
-//                    if (displayName != null)
-//                        mDisplayName = displayName;
-//                    else
-//                        mDisplayName = "Unknown DisplayName";
                 } else {
                     Log.e(TAG,"AUTH STATE UPDATE : NO valid user logged in");
                     mDisplayName = "No Valid User";
@@ -94,10 +98,11 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         if (resultCode == RESULT_OK) {
             if (requestCode == 101) {
 
-                mDisplayName = data.getStringExtra("displayname");
-                Log.e(TAG,"Intent returned Display Name [" + mDisplayName + "]");
+                mDisplayName = data.getStringExtra("email");
+                Log.e(TAG,"Intent returned Email [" + mAuth.getCurrentUser().getEmail().toString() + "]");
 
                 mAuth.addAuthStateListener(mAuthListener);
+                initGravatars();
             }
         }
     }
@@ -115,7 +120,8 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         if (id == R.id.menu_logout) {
             Log.e(TAG,"Logout selected");
 
-            mAuth.signOut();
+            mAuth.getInstance().signOut();
+            
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -139,5 +145,22 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
     }
     public void onSuggestionFragmentInteraction(Uri uri){
         Log.e(TAG,"Suggestion Interaction Listener");
+    }
+
+    public void initGravatars(){
+        String myEmail = mAuth.getCurrentUser().getEmail();
+        int index = myEmail.indexOf('@');
+        String mDisplayName = myEmail.substring(0,index);
+        String gravatarURL = Gravatar.init().with(myEmail).size(100).build();
+        DatabaseReference ref = mDatabase.getInstance().getReference("userGravatars").child(mDisplayName);
+        ref.setValue(gravatarURL);
+        String https = "https://secure"+gravatarURL.substring(10);
+
+        mAvatar = (ImageView) findViewById(R.id.user_avatar);
+        Picasso.get()
+                .load(https)
+                .resize(59, 59)
+                .into(mAvatar);
+        Log.e("Heres the gravatar link",https);
     }
 }
