@@ -1,0 +1,11 @@
+query test($genre: [String] = "hentai", $score: Int = 60, $sort: [MediaSort] = SCORE_DESC) {
+  Page {
+    media(type: ANIME, genre_in: $genre, averageScore_greater: $score, sort: $sort) {
+      id
+      title {
+        romaji
+      }
+      averageScore
+    }
+  }
+}
