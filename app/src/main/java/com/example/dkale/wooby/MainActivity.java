@@ -1,9 +1,7 @@
 package com.example.dkale.wooby;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -13,16 +11,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dkale.wooby.dummy.DummyContent;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         setContentView(R.layout.activity_main);
         initFirebase();
         initViewPager();
+//        initDatabase();
     }
 
     private void initFirebase() {
@@ -75,8 +68,10 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
                     mScreenMessage = (TextView) findViewById(R.id.userName);
                     mScreenMessage.setText(user.getEmail());
                     initGravatars();
-
-
+                    String myEmail = mAuth.getCurrentUser().getEmail();
+                    int index = myEmail.indexOf('@');
+                    String mDisplayName = myEmail.substring(0,index);
+                    initDatabase(mDisplayName);
                 } else {
                     Log.e(TAG,"AUTH STATE UPDATE : NO valid user logged in");
                     mDisplayName = "No Valid User";
@@ -137,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
     public void onFragmentInteraction(Uri uri){
         Log.e(TAG,"Fragment Interaction Listener");
     }
-    public void onHistoryListFragmentInteraction(DummyContent.DummyItem item){
+    public void onHistoryListFragmentInteraction(WatchedListItem item){
         Log.e(TAG,"History Fragment");
     }
     public void onToWatchListFragmentInteraction(DummyContent.DummyItem item){
@@ -162,5 +157,32 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
                 .resize(59, 59)
                 .into(mAvatar);
         Log.e("Heres the gravatar link",https);
+    }
+
+    public void initDatabase(final String compareName){
+        mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference ref = mDatabase.getReference("userWatchedList");
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                HistoryFragment history = (HistoryFragment)mFragmentAdapter.getItem(1);
+                history.resetArray();
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    for(DataSnapshot childAnime : child.getChildren()) {
+                        if(child.getKey().equals(compareName)) {
+                            WatchedListItem item = childAnime.getValue(WatchedListItem.class);
+                            history.routeWatchedItem(item);
+                            Log.e(TAG, "Adding Child " + item.toString() + " To Email " + mAuth.getCurrentUser().getEmail());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        ref.addValueEventListener(listener);
     }
 }
