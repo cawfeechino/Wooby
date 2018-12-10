@@ -61,10 +61,14 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_suggestion);
         initFirebase();
         initViewPager();
 //        initDatabase();
-        aniList = (TextView) findViewById(R.id.anilist);
+        aniName = (TextView) findViewById(R.id.aniName);
+        aniGenre = (TextView) findViewById(R.id.aniGenre);
+        aniRating = (TextView) findViewById(R.id.aniRating);
+        imageView = (ImageView) findViewById(R.id.imageView);
         apolloTest();
     }
 
@@ -201,7 +205,10 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         ref.addValueEventListener(listener);
     }
 
-    private TextView aniList;
+    private TextView aniName;
+    private TextView aniGenre;
+    private TextView aniRating;
+    private ImageView imageView;
     final static String BASE_URL = "https://graphql.anilist.co";
 
 
@@ -213,21 +220,27 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         apolloClient.query(testQuery).enqueue(new ApolloCall.Callback<TestQuery.Data>() {
             @Override
             public void onResponse(@NotNull Response<TestQuery.Data> response) {
-                final StringBuffer buffer = new StringBuffer();
+                final StringBuffer title = new StringBuffer();
+                final StringBuffer genre = new StringBuffer();
+                final StringBuffer rating = new StringBuffer();
+                final StringBuffer img = new StringBuffer();
                 TestQuery.Data anime = response.data();
                 for(int x = 0; x < anime.Page().media().size(); x++){
-                    buffer.append("title: " + anime.Page().media().get(x).title());
-                    buffer.append("averageScore: " + anime.Page().media().get(x).averageScore());
-                    buffer.append("coverImage: " + anime.Page().media().get(x).coverImage());
-                    buffer.append("genres: " + anime.Page().media().get(x).genres());
-                    buffer.append("\n~~~~~~~~~~~");
-                    buffer.append("\n\n");
+                    title.append("title: " + anime.Page().media().get(x).title());
+                    genre.append("averageScore: " + anime.Page().media().get(x).averageScore());
+                    rating.append("coverImage: " + anime.Page().media().get(x).coverImage());
+                    img.append("genres: " + anime.Page().media().get(x).genres());
                 }
 
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override public void run() {
-                        TextView txtResponse = aniList;
-                        txtResponse.setText(buffer.toString());
+                        TextView titleRes = aniName;
+                        TextView genreRes = aniGenre;
+                        TextView ratingRes = aniRating;
+                        ImageView imgRes = imageView;
+                        titleRes.setText(title.toString());
+                        genreRes.setText(genre.toString());
+                        ratingRes.setText(rating.toString());
                     }
                 });
 
