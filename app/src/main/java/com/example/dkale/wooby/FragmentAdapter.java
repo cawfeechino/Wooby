@@ -6,20 +6,22 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class FragmentAdapter extends FragmentPagerAdapter {
 
+    HistoryFragment mHistory;
+
     public FragmentAdapter(FragmentManager manager){
         super(manager);
+        mHistory = HistoryFragment.newInstance(1);
     }
     public int getCount(){
-        return 4;
+        return 3;
     }
     public Fragment getItem(int position){
         Fragment page = null;
         switch(position){
             case 0: page = Suggestion.newInstance("One","Two"); break;
-            case 1: page = ChatMessageFragment.newInstance("One","Two"); break;
-            case 2: page = HistoryFragment.newInstance(1); break;
-            case 3: page = ToWatchFragment.newInstance(2); break;
-            default: page = ChatMessageFragment.newInstance("One","Two"); break;
+            case 1: page = mHistory; break;
+            case 2: page = ToWatchFragment.newInstance(1); break;
+            default: page = Suggestion.newInstance("One","Two"); break;
         }
         return page;
     }
@@ -28,10 +30,9 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         CharSequence result = "";
         switch(position){
             case 0: result = "Suggestion"; break;
-            case 1: result = "Chat"; break;
-            case 2: result = "Watched"; break;
-            case 3: result = "To-Watch"; break;
-            default: result = "Chat"; break;
+            case 1: result = "Watched"; break;
+            case 2: result = "To-Watch"; break;
+            default: result = "Suggestion"; break;
         }
         return result;
     }

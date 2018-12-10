@@ -34,7 +34,6 @@ public class SignIn extends AppCompatActivity {
     EditText mEmailText;
     EditText mPasswordText;
     EditText mConfirmPasswordText;
-    EditText mDisplayNameText;
 
     Button mLoginButton;
     TextView mRegisterText;
@@ -43,7 +42,6 @@ public class SignIn extends AppCompatActivity {
 
     boolean mLoginInProgress = false;
     boolean mRegisterInProgress = false;
-    String mDisplayName = "Unknown";
 
 
     @Override
@@ -61,7 +59,6 @@ public class SignIn extends AppCompatActivity {
         mEmailText = (EditText) findViewById(R.id.emailEdit);
         mPasswordText = (EditText) findViewById(R.id.passwordEdit);
         mConfirmPasswordText = (EditText) findViewById(R.id.confirmPasswordEdit);
-        mDisplayNameText = (EditText) findViewById(R.id.displayNameEdit);
         invalidUser = (TextView) findViewById(R.id.invalidUserView);
         mLoginButton = (Button) findViewById(R.id.logonButton);
         mRegisterText = (TextView) findViewById(R.id.registerText);
@@ -70,7 +67,6 @@ public class SignIn extends AppCompatActivity {
         mEmailText.setVisibility(View.GONE);
         mPasswordText.setVisibility(View.GONE);
         mConfirmPasswordText.setVisibility(View.GONE);
-        mDisplayNameText.setVisibility(View.GONE);
         invalidUser.setVisibility(View.GONE);
         passwordConfirm.setVisibility(View.GONE);
     }
@@ -88,7 +84,6 @@ public class SignIn extends AppCompatActivity {
                     mEmailText.setVisibility(View.VISIBLE);
                     mPasswordText.setVisibility(View.VISIBLE);
                     mConfirmPasswordText.setVisibility(View.GONE);
-                    mDisplayNameText.setVisibility(View.GONE);
 
                     mLoginInProgress = true;
                 } else {
@@ -103,7 +98,7 @@ public class SignIn extends AppCompatActivity {
                         if(password.matches("")){
                             mPasswordText.setHint("Input a Password");
                         }
-                     }
+                    }
                     else{
                         loginUser(email, password);
                     }
@@ -123,7 +118,6 @@ public class SignIn extends AppCompatActivity {
                     mEmailText.setVisibility(View.VISIBLE);
                     mPasswordText.setVisibility(View.VISIBLE);
                     mConfirmPasswordText.setVisibility(View.VISIBLE);
-                    mDisplayNameText.setVisibility(View.VISIBLE);
                     mLoginButton.setVisibility(View.GONE);
                     mRegisterInProgress = true;
                 } else {
@@ -133,7 +127,6 @@ public class SignIn extends AppCompatActivity {
                     String password = mPasswordText.getText().toString();
                     String confirmPassword = mConfirmPasswordText.getText().toString();
                     // Validate password/password confirm here
-                    mDisplayName = mDisplayNameText.getText().toString();
                     if(email.matches("") || password.matches("") || confirmPassword.matches("")){
                         if(email.matches("")){
                             mEmailText.setHint("Input an Email");
@@ -183,7 +176,7 @@ public class SignIn extends AppCompatActivity {
         mAuth.addAuthStateListener(mAuthStateListener);
     }
 
-    private void registerUser(String email, String password/*, String displayName*/) {
+    private void registerUser(String email, String password) {
 
         OnCompleteListener<AuthResult> complete = new OnCompleteListener<AuthResult>() {
             @Override
@@ -240,7 +233,7 @@ public class SignIn extends AppCompatActivity {
         mAuth.removeAuthStateListener(mAuthStateListener);
 
         Intent returningIntent = new Intent();
-        returningIntent.putExtra("displayname", mDisplayName);
+        returningIntent.putExtra("Email", mEmailText.toString());
         setResult(RESULT_OK, returningIntent);
 
         finish();

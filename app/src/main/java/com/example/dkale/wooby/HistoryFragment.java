@@ -2,18 +2,16 @@ package com.example.dkale.wooby;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.dkale.wooby.dummy.DummyContent;
-import com.example.dkale.wooby.dummy.DummyContent.DummyItem;
-
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A fragment representing a list of Items.
@@ -23,17 +21,21 @@ import java.util.List;
  */
 public class HistoryFragment extends android.support.v4.app.Fragment {
 
-    // TODO: Customize parameter argument names
+    ArrayList<WatchedListItem> mHistoryArray;
+    HistoryRecyclerViewAdapter mAdapter;
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+
+
+
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public HistoryFragment() {
+        mHistoryArray = new ArrayList<WatchedListItem>();
     }
 
     // TODO: Customize parameter initialization
@@ -69,7 +71,8 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new HistoryRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            mAdapter = new HistoryRecyclerViewAdapter(mHistoryArray, mListener);
+            recyclerView.setAdapter(mAdapter);
         }
         return view;
     }
@@ -104,6 +107,26 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onHistoryListFragmentInteraction(DummyItem item);
+        void onHistoryListFragmentInteraction(WatchedListItem item);
+    }
+    public void routeWatchedItem(WatchedListItem item){
+        Log.e("Watched Fragment",item.toString());
+        if (mHistoryArray != null) {
+            if (!mHistoryArray.contains( item )) {
+                mHistoryArray.add(item);
+
+            }
+
+            if (mAdapter != null)
+                mAdapter.notifyDataSetChanged();
+        } else
+            Log.e("History Fragment","History BAD" );
+    }
+
+    public void resetArray() {
+        mHistoryArray.clear();
+
+        if (mAdapter != null)
+            mAdapter.notifyDataSetChanged();
     }
 }
