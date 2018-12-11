@@ -30,19 +30,19 @@ public class SignIn extends AppCompatActivity {
     FirebaseApp mApp;
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthStateListener;
-
     EditText mEmailText;
     EditText mPasswordText;
     EditText mConfirmPasswordText;
-
     Button mLoginButton;
     TextView mRegisterText;
     TextView invalidUser;
     TextView passwordConfirm;
-
     boolean mLoginInProgress = false;
     boolean mRegisterInProgress = false;
 
+    public void onBackPressed() {
+        //do nothing
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +118,8 @@ public class SignIn extends AppCompatActivity {
                     mEmailText.setVisibility(View.VISIBLE);
                     mPasswordText.setVisibility(View.VISIBLE);
                     mConfirmPasswordText.setVisibility(View.VISIBLE);
-                    mLoginButton.setVisibility(View.GONE);
+//                    mLoginButton.setVisibility(View.GONE);
+//                    mLoginButton.setEnabled(false);
                     mRegisterInProgress = true;
                 } else {
 
