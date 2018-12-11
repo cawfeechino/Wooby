@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
 
                 mAuth.addAuthStateListener(mAuthListener);
                 initGravatars();
-                writeToWatchDatabase("Date A Live", "Its a show about dating a live...", "https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Date_A_Live_Volume_1.jpg/220px-Date_A_Live_Volume_1.jpg", "https://en.wikipedia.org/wiki/Date_A_Live");
+//                writeToWatchDatabase("Date A Live", "Its a show about dating a live...", "https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Date_A_Live_Volume_1.jpg/220px-Date_A_Live_Volume_1.jpg", "https://en.wikipedia.org/wiki/Date_A_Live");
                 //writeToDatabase();
                 //Make Database calls here...for initialization
                 //If you want to do a live update while in app, that will have to be done elsewhere
