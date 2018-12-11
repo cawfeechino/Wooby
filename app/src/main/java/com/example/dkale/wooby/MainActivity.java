@@ -120,7 +120,10 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
 
                 mAuth.addAuthStateListener(mAuthListener);
                 initGravatars();
-//                writeToDatabase();
+                writeToWatchDatabase("Date A Live", "Its a show about dating a live...", "https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Date_A_Live_Volume_1.jpg/220px-Date_A_Live_Volume_1.jpg", "https://en.wikipedia.org/wiki/Date_A_Live");
+                //writeToDatabase();
+                //Make Database calls here...for initialization
+                //If you want to do a live update while in app, that will have to be done elsewhere
             }
         }
     }
@@ -245,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         ref.addValueEventListener(listener);
     }
 
-    public void writeToDatabase(String animeName, String animeDescription, String animeImage, String animeURL){
+    public void writeWatchedDatabase(String animeName, String animeDescription, String animeImage, String animeURL){
         String myEmail = mAuth.getCurrentUser().getEmail();
         int index = myEmail.indexOf('@');
         String mDisplayName = myEmail.substring(0,index);
@@ -256,7 +259,17 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         ref.child(animeName).child("animeName").setValue(animeName);
         ref.child(animeName).child("animeURL").setValue(animeURL);
     }
-
+    public void writeToWatchDatabase(String animeName, String animeDescription, String animeImage, String animeURL){
+        String myEmail = mAuth.getCurrentUser().getEmail();
+        int index = myEmail.indexOf('@');
+        String mDisplayName = myEmail.substring(0,index);
+        DatabaseReference ref = mDatabase.getReference("userToWatchList").child(mDisplayName);
+        ref.child(animeName);
+        ref.child(animeName).child("animeDescription").setValue(animeDescription);
+        ref.child(animeName).child("animeImage").setValue(animeImage);
+        ref.child(animeName).child("animeName").setValue(animeName);
+        ref.child(animeName).child("animeURL").setValue(animeURL);
+    }
 
 
 //    private TextView aniList;
