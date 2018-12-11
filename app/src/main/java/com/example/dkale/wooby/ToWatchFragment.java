@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.dkale.wooby.dummy.DummyContent;
 import com.example.dkale.wooby.dummy.DummyContent.DummyItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,9 +25,9 @@ import java.util.List;
  */
 public class ToWatchFragment extends android.support.v4.app.Fragment {
 
-    // TODO: Customize parameter argument names
+    ArrayList<ToWatchListItem> mToWatchList;
+    ToWatchRecyclerViewAdapter mAdapter;
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
@@ -34,6 +36,7 @@ public class ToWatchFragment extends android.support.v4.app.Fragment {
      * fragment (e.g. upon screen orientation changes).
      */
     public ToWatchFragment() {
+        mToWatchList = new ArrayList<ToWatchListItem>();
     }
 
     // TODO: Customize parameter initialization
@@ -69,7 +72,8 @@ public class ToWatchFragment extends android.support.v4.app.Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new ToWatchRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            mAdapter = new ToWatchRecyclerViewAdapter(mToWatchList, mListener);
+            recyclerView.setAdapter(mAdapter);
         }
         return view;
     }
@@ -104,6 +108,26 @@ public class ToWatchFragment extends android.support.v4.app.Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onToWatchListFragmentInteraction(DummyItem item);
+        void onToWatchListFragmentInteraction(ToWatchListItem item);
+    }
+    public void routeWatchedItem(ToWatchListItem item){
+        Log.e("Watched Fragment",item.toString());
+        if (mToWatchList != null) {
+            if (!mToWatchList.contains( item )) {
+                mToWatchList.add(item);
+
+            }
+
+            if (mAdapter != null)
+                mAdapter.notifyDataSetChanged();
+        } else
+            Log.e("To Watch Fragment","To Watch BAD" );
+    }
+
+    public void resetArray() {
+        mToWatchList.clear();
+
+        if (mAdapter != null)
+            mAdapter.notifyDataSetChanged();
     }
 }

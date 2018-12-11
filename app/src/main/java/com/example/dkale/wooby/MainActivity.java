@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +42,7 @@ import okhttp3.OkHttpClient;
 
 import fr.tkeunebr.gravatar.Gravatar;
 
+import static android.support.constraint.Constraints.TAG;
 import static com.google.firebase.auth.FirebaseAuth.getInstance;
 
 public class MainActivity extends AppCompatActivity implements ChatMessageFragment.OnFragmentInteractionListener, HistoryFragment.OnListFragmentInteractionListener, ToWatchFragment.OnListFragmentInteractionListener, Suggestion.OnFragmentInteractionListener{
@@ -53,9 +56,12 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
     TextView mScreenMessage;
     ViewPager mViewPager;
     FragmentAdapter mFragmentAdapter;
+    FragmentAdapter mToWatchFragmentAdapter;
     TabLayout mTabLayout;
     FirebaseDatabase mDatabase;
     ImageView mAvatar;
+    Button writer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         setContentView(R.layout.activity_main);
         initFirebase();
         initViewPager();
-//        initDatabase();
+//        initListeners();
 //        aniList = (TextView) findViewById(R.id.anilist);
 //        apolloTest();
     }
@@ -86,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
                     String myEmail = mAuth.getCurrentUser().getEmail();
                     int index = myEmail.indexOf('@');
                     String mDisplayName = myEmail.substring(0,index);
-                    initDatabase(mDisplayName);
+                    initDatabaseWatched(mDisplayName);
+                    initDatabaseToWatch(mDisplayName);
                 } else {
                     Log.e(TAG,"AUTH STATE UPDATE : NO valid user logged in");
                     mDisplayName = "No Valid User";
@@ -113,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
 
                 mAuth.addAuthStateListener(mAuthListener);
                 initGravatars();
+//                writeToDatabase();
             }
         }
     }
@@ -150,11 +158,20 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
     public void onHistoryListFragmentInteraction(WatchedListItem item){
         Log.e(TAG,"History Fragment");
     }
-    public void onToWatchListFragmentInteraction(DummyContent.DummyItem item){
+    public void onToWatchListFragmentInteraction(ToWatchListItem item){
         Log.e(TAG,"To Watch Fragment");
     }
     public void onSuggestionFragmentInteraction(Uri uri){
         Log.e(TAG,"Suggestion Interaction Listener");
+
+            writer = (Button) findViewById(R.id.writerButton);
+            writer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.e(TAG,"clicked");
+                }
+            });
+
     }
 
     public void initGravatars(){
@@ -174,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         Log.e("Heres the gravatar link",https);
     }
 
-    public void initDatabase(final String compareName){
+    public void initDatabaseWatched(final String compareName){
         mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference ref = mDatabase.getReference("userWatchedList");
         ValueEventListener listener = new ValueEventListener() {
@@ -200,6 +217,47 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         };
         ref.addValueEventListener(listener);
     }
+
+    public void initDatabaseToWatch(final String compareName){
+        mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference ref = mDatabase.getReference("userToWatchList");
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ToWatchFragment history = (ToWatchFragment)mFragmentAdapter.getItem(2);
+                history.resetArray();
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    for(DataSnapshot childAnime : child.getChildren()) {
+                        if(child.getKey().equals(compareName)) {
+                            ToWatchListItem item = childAnime.getValue(ToWatchListItem.class);
+                            history.routeWatchedItem(item);
+                            Log.e(TAG, "Adding Child To Watch" + item.toString() + " To Email " + mAuth.getCurrentUser().getEmail());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        ref.addValueEventListener(listener);
+    }
+
+    public void writeToDatabase(String animeName, String animeDescription, String animeImage, String animeURL){
+        String myEmail = mAuth.getCurrentUser().getEmail();
+        int index = myEmail.indexOf('@');
+        String mDisplayName = myEmail.substring(0,index);
+        DatabaseReference ref = mDatabase.getReference("userToWatchList").child(mDisplayName);
+        ref.child(animeName);
+        ref.child(animeName).child("animeDescription").setValue(animeDescription);
+        ref.child(animeName).child("animeImage").setValue(animeImage);
+        ref.child(animeName).child("animeName").setValue(animeName);
+        ref.child(animeName).child("animeURL").setValue(animeURL);
+    }
+
+
 
 //    private TextView aniList;
 //    final static String BASE_URL = "https://graphql.anilist.co";

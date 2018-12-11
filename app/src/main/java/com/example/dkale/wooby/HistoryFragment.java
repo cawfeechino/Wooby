@@ -28,8 +28,6 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
     private OnListFragmentInteractionListener mListener;
 
 
-
-
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).

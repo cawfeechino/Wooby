@@ -7,10 +7,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class FragmentAdapter extends FragmentPagerAdapter {
 
     HistoryFragment mHistory;
+    ToWatchFragment mToWatch;
 
     public FragmentAdapter(FragmentManager manager){
         super(manager);
         mHistory = HistoryFragment.newInstance(1);
+        mToWatch = ToWatchFragment.newInstance(1);
     }
     public int getCount(){
         return 3;
@@ -20,7 +22,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         switch(position){
             case 0: page = Suggestion.newInstance("One","Two"); break;
             case 1: page = mHistory; break;
-            case 2: page = ToWatchFragment.newInstance(1); break;
+            case 2: page = mToWatch; break;
             default: page = Suggestion.newInstance("One","Two"); break;
         }
         return page;

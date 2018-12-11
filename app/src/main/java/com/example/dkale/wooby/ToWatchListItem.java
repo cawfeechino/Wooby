@@ -1,13 +1,13 @@
 package com.example.dkale.wooby;
 
-public class WatchedListItem {
+public class ToWatchListItem {
     String TAG = "Firebase Watched Item";
     String animeDescription;
     String animeImage;
     String animeURL;
     String animeName;
 
-    public WatchedListItem(){;}
+    public ToWatchListItem(){;}
 
     public String getAnimeName(){return animeName;}
     public String getAnimeURL(){return animeURL;}
