@@ -41,6 +41,9 @@ import okhttp3.OkHttpClient;
 import fr.tkeunebr.gravatar.Gravatar;
 
 import static com.google.firebase.auth.FirebaseAuth.getInstance;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 public class MainActivity extends AppCompatActivity implements ChatMessageFragment.OnFragmentInteractionListener, HistoryFragment.OnListFragmentInteractionListener, ToWatchFragment.OnListFragmentInteractionListener, Suggestion.OnFragmentInteractionListener{
     final String TAG = "FirebaseTest";
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //setContentView(R.layout.fragment_suggestion);
         initFirebase();
         initViewPager();
 //        initDatabase();
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         imageView = (ImageView) findViewById(R.id.imageView);
         apolloTest();
     }
+
 
     private void initFirebase() {
 
