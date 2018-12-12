@@ -12,12 +12,19 @@
         android:text="Hello World!" />
 
     <Button
-        android:id="@+id/writerButton"
+        android:id="@+id/toWatchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_gravity="right|center_vertical"
         android:elevation="0dp"
-        android:text="Write to Firebase" />
+        android:text="Watch Later" />
 
 
+    <Button
+        android:id="@+id/watchedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:elevation="0dp"
+        android:text="Watched" />
 </FrameLayout>

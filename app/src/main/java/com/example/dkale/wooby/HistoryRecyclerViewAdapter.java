@@ -37,7 +37,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         holder.mIdView.setText(mValues.get(position).getAnimeName());
         holder.mContentView.setText(mValues.get(position).getAnimeDescription());
         Picasso.get().load(mValues.get(position).getAnimeImage()).into(holder.mImageView);
-        Log.e("OnBindViewHolder ", mValues.get(position).getAnimeImage());
+//        Log.e("OnBindViewHolder ", mValues.get(position).getAnimeImage());
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

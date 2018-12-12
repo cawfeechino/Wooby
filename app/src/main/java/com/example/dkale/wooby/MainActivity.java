@@ -166,15 +166,6 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
     }
     public void onSuggestionFragmentInteraction(Uri uri){
         Log.e(TAG,"Suggestion Interaction Listener");
-
-            writer = (Button) findViewById(R.id.writerButton);
-            writer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.e(TAG,"clicked");
-                }
-            });
-
     }
 
     public void initGravatars(){
@@ -252,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         String myEmail = mAuth.getCurrentUser().getEmail();
         int index = myEmail.indexOf('@');
         String mDisplayName = myEmail.substring(0,index);
-        DatabaseReference ref = mDatabase.getReference("userToWatchList").child(mDisplayName);
+        DatabaseReference ref = mDatabase.getReference("userWatchedList").child(mDisplayName);
         ref.child(animeName);
         ref.child(animeName).child("animeDescription").setValue(animeDescription);
         ref.child(animeName).child("animeImage").setValue(animeImage);

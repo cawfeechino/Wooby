@@ -33,7 +33,7 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         switch(position){
             case 0: result = "Suggestion"; break;
             case 1: result = "Watched"; break;
-            case 2: result = "To-Watch"; break;
+            case 2: result = "Watch Later"; break;
             default: result = "Suggestion"; break;
         }
         return result;

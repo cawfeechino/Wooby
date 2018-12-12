@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -30,6 +31,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Button writer;
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,6 +81,13 @@ public class Suggestion extends android.support.v4.app.Fragment {
     }
 
     @Override
+    public void onActivityCreated (Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        buttonToWatch();
+        buttonWatched();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -110,5 +119,32 @@ public class Suggestion extends android.support.v4.app.Fragment {
         void onSuggestionFragmentInteraction(Uri uri);
     }
 
+    public void buttonToWatch(){
+        writer = (Button) getView().findViewById(R.id.toWatchButton);
+        writer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Added to 'To Watch' list", Toast.LENGTH_SHORT).show();
+                if(getActivity() != null){
+//                    This is the suggestion activity. This is where the button listener is for the Add to "Watch Later" list. Uncomment the line below and add the proper parameters
+//                    ((MainActivity) getActivity()).writeToWatchDatabase("Sailor Moon","Its about a magical girl...","https://upload.wikimedia.org/wikipedia/en/e/e5/SMVolume1.jpg","https://en.wikipedia.org/wiki/Sailor_Moon");
+                }
+            }
+        });
+    }
+
+    public void buttonWatched(){
+        writer = (Button) getView().findViewById(R.id.watchedButton);
+        writer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Added to 'Watched' list", Toast.LENGTH_SHORT).show();
+                if(getActivity() != null){
+//                    This is the suggestion activity. This is where the button listener is for the Add to "Watch" list. Uncomment the line below and add the proper parameters
+//                    ((MainActivity) getActivity()).writeWatchedDatabase("Sailor Moon","Its about a magical girl...","https://upload.wikimedia.org/wikipedia/en/e/e5/SMVolume1.jpg","https://en.wikipedia.org/wiki/Sailor_Moon");
+                }
+            }
+        });
+    }
 
 }
