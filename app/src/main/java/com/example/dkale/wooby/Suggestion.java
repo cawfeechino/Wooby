@@ -138,7 +138,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
                 if(getActivity() != null){
                     Log.e("If you can see this",titleName.getText().toString());
 //                    This is the suggestion activity. This is where the button listener is for the Add to "Watch Later" list. Uncomment the line below and add the proper parameters
-//                    ((MainActivity) getActivity()).writeToWatchDatabase("Sailor Moon","Its about a magical girl...","https://upload.wikimedia.org/wikipedia/en/e/e5/SMVolume1.jpg","https://en.wikipedia.org/wiki/Sailor_Moon");
+                    ((MainActivity) getActivity()).writeToWatchDatabase("Sailor Moon","Its about a magical girl...","https://upload.wikimedia.org/wikipedia/en/e/e5/SMVolume1.jpg","https://en.wikipedia.org/wiki/Sailor_Moon");
                 }
             }
         });
@@ -154,7 +154,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
                 if(getActivity() != null){
                     Log.e("If you can see this",titleName.getText().toString());
 //                    This is the suggestion activity. This is where the button listener is for the Add to "Watch" list. Uncomment the line below and add the proper parameters
-//                    ((MainActivity) getActivity()).writeWatchedDatabase("Sailor Moon","Its about a magical girl...","https://upload.wikimedia.org/wikipedia/en/e/e5/SMVolume1.jpg","https://en.wikipedia.org/wiki/Sailor_Moon");
+                    ((MainActivity) getActivity()).writeWatchedDatabase("Sailor Moon","Its about a magical girl...","https://upload.wikimedia.org/wikipedia/en/e/e5/SMVolume1.jpg","https://en.wikipedia.org/wiki/Sailor_Moon");
                 }
             }
         });
