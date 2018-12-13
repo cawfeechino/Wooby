@@ -147,8 +147,9 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
             return true;
         }
         else if(id == R.id.menu_refresh){
-            initDatabaseToWatch(mDisplayName);
-            initDatabaseWatched(mDisplayName);
+//            initDatabaseToWatch(mDisplayName);
+//            initDatabaseWatched(mDisplayName);
+            initFirebase();
             return true;
         }
         return super.onOptionsItemSelected(item);

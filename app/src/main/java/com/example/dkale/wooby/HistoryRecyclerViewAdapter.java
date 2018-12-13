@@ -23,7 +23,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
     private final OnListFragmentInteractionListener mListener;
     private Context mContext;
 
-    public HistoryRecyclerViewAdapter(Context context,ArrayList<WatchedListItem> items, OnListFragmentInteractionListener listener) {
+    public HistoryRecyclerViewAdapter(Context context, ArrayList<WatchedListItem> items, OnListFragmentInteractionListener listener) {
         this.mContext=context;
         mValues = items;
         mListener = listener;

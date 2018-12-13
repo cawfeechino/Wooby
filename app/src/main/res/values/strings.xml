@@ -6,5 +6,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_avatar">User Avatar</string>
     <string name="removeButton">Remove from list</string>
+    <string name="watchedButton">Move to \"Watched\" list</string>
     <string name="refresh">Refresh</string>
 </resources>
