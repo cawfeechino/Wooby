@@ -3,9 +3,15 @@ query highestScore($sort: [MediaSort] = SCORE_DESC) {
     media(sort: $sort) {
       id
       title {
-        romaji
+        romaji,english
       }
+      genres
       averageScore
+      description
+      siteUrl
+      coverImage{
+      medium
+      }
     }
   }
 }
