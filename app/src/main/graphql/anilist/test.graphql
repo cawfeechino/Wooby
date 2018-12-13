@@ -10,6 +10,8 @@ query test($genre: [String] = ["action"], $score: Int = 60, $sort: [MediaSort] =
       description
       siteUrl
       coverImage{
+        extraLarge
+        large
         medium
       }
     }

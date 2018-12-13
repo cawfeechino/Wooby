@@ -165,6 +165,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
                 if(getActivity() != null){
                     Log.e("aniname",aniName.getText().toString() + " " + anidescription.getText().toString() + " " + aniUrl.getText().toString() + " " + imageURL.getText().toString());
 //                    This is the suggestion activity. This is where the button listener is for the Add to "Watch Later" list. Uncomment the line below and add the proper parameters
+                    ((MainActivity) getActivity()).writeToWatchDatabase(aniName.getText().toString(),anidescription.getText().toString(),imageURL.getText().toString(),aniUrl.getText().toString());
 //                    ((MainActivity) getActivity()).writeToWatchDatabase("Sailor Moon","Its about a magical girl...","https://upload.wikimedia.org/wikipedia/en/e/e5/SMVolume1.jpg","https://en.wikipedia.org/wiki/Sailor_Moon");
                 }
             }
@@ -185,7 +186,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
                 if(getActivity() != null){
                     Log.e("aniname",aniName.getText().toString() + " " + anidescription.getText().toString() + " " + aniUrl.getText().toString() + " " + imageURL.getText().toString());
 //                    This is the suggestion activity. This is where the button listener is for the Add to "Watch" list. Uncomment the line below and add the proper parameters
-//                    ((MainActivity) getActivity()).writeWatchedDatabase("Sailor Moon","Its about a magical girl...","https://upload.wikimedia.org/wikipedia/en/e/e5/SMVolume1.jpg","https://en.wikipedia.org/wiki/Sailor_Moon");
+                    ((MainActivity) getActivity()).writeWatchedDatabase(aniName.getText().toString(),anidescription.getText().toString(),imageURL.getText().toString(),aniUrl.getText().toString());
                 }
             }
         });
@@ -204,49 +205,53 @@ public class Suggestion extends android.support.v4.app.Fragment {
         aniUrl = (TextView) getView().findViewById(R.id.aniURL);
         imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
 
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
         ApolloClient apolloClient = ApolloClient.builder().serverUrl(BASE_URL).okHttpClient(okHttpClient).build();
-        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList("action"))).score(60).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
+        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList("slice of life"))).score(60).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
         apolloClient.query(testQuery).enqueue(new ApolloCall.Callback<anilist.TestQuery.Data>() {
             @Override
             public void onResponse(@NotNull Response<anilist.TestQuery.Data> response) {
                 final StringBuffer buffer = new StringBuffer();
                 TestQuery.Data anime = response.data();
-                for(int x = 0; x < anime.Page().media().size(); x++){
-                    String animenames = anime.Page().media().get(x).title().romaji();
-                    String imageURL1 = anime.Page().media().get(x).coverImage().medium();
-                    String des = anime.Page().media().get(x).description();
-                    String animeURL = anime.Page().media().get(x).siteUrl();
-                    Log.e("testname",animenames);
-                    Log.e("testurl", imageURL1);
-                    Log.e("testdes",des);
-                    aniName.setText(animenames);
-                    anidescription.setText(Html.fromHtml(des).toString());
-                    aniUrl.setText(animeURL);
-                    imageURL.setText(imageURL1);
+//                for(int x = 0; x < anime.Page().media().size(); x++){
+//                    String animenames = anime.Page().media().get(x).title().romaji();
+//                    String imageURL1 = anime.Page().media().get(x).coverImage().medium();
+//                    String des = anime.Page().media().get(x).description();
+//                    String animeURL = anime.Page().media().get(x).siteUrl();
+//                    Log.e("testname",animenames);
+//                    Log.e("testurl", imageURL1);
+//                    Log.e("testdes",des);
+//                    aniName.setText(animenames);
+//                    anidescription.setText(Html.fromHtml(des).toString());
+//                    aniUrl.setText(animeURL);
+//                    imageURL.setText(imageURL1);
 //                    buffer.append("id: " + anime.Page().media().get(x).id());
 //                    buffer.append("title: " + anime.Page().media().get(x).title());
 //                    buffer.append("averageScore: " + anime.Page().media().get(x).averageScore());
 //                    buffer.append("\n~~~~~~~~~~~");
 //                    buffer.append("\n\n");
-                }
-//                String animenames = anime.Page().media().get(0).title().romaji();
-//                String imageURL1 = anime.Page().media().get(0).coverImage().medium();
-//                String des = anime.Page().media().get(0).description();
-//                String animeURL = anime.Page().media().get(0).siteUrl();
-//                Log.e("testname",animenames);
-//                Log.e("testurl", imageURL1);
-//                Log.e("testdes",des);
-//                aniName = (TextView) getView().findViewById(R.id.aniName);
-//                anidescription = (TextView) getView().findViewById(R.id.aniDescription);
-//                aniPic = (ImageView) getView().findViewById(R.id.aniImages);
-//                aniUrl = (TextView) getView().findViewById(R.id.aniURL);
-//                imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
-//
-//                aniName.setText(animenames);
-//                anidescription.setText(Html.fromHtml(des).toString());
-//                aniUrl.setText(animeURL);
-//                imageURL.setText(imageURL1);
+//                }
+                int max = anime.Page().media().size() - 1;
+                int min = 0;
+                int rando = (int) (Math.random() * max + min);
+                String animenames = anime.Page().media().get(rando).title().romaji();
+                String imageURL1 = anime.Page().media().get(rando).coverImage().large();
+                String des = anime.Page().media().get(rando).description();
+                String animeURL = anime.Page().media().get(rando).siteUrl();
+                Log.e("testname",animenames);
+                Log.e("testurl", imageURL1);
+                Log.e("testdes",des);
+                aniName = (TextView) getView().findViewById(R.id.aniName);
+                anidescription = (TextView) getView().findViewById(R.id.aniDescription);
+                aniPic = (ImageView) getView().findViewById(R.id.aniImages);
+                aniUrl = (TextView) getView().findViewById(R.id.aniURL);
+                imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
+
+                aniName.setText(animenames);
+                anidescription.setText(Html.fromHtml(des).toString());
+                aniUrl.setText(animeURL);
+                imageURL.setText(imageURL1);
             }
 
 

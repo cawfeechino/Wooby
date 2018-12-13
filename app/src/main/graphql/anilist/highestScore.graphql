@@ -10,6 +10,8 @@ query highestScore($sort: [MediaSort] = SCORE_DESC) {
       description
       siteUrl
       coverImage{
+      extraLarge
+      large
       medium
       }
     }
