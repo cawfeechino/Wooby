@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         initViewPager();
 //        initListeners();
 //        aniList = (TextView) findViewById(R.id.anilist);
-//        apolloTest();
+ //       apolloTest();
     }
 
     private void initFirebase() {
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
 //
 //        OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
 //        ApolloClient apolloClient = ApolloClient.builder().serverUrl(BASE_URL).okHttpClient(okHttpClient).build();
-//        final TestQuery testQuery = TestQuery.builder().genre(new ArrayList<String>(Arrays.asList("hentai"))).score(60).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
+//        final TestQuery testQuery = TestQuery.builder().genre(new ArrayList<String>(Arrays.asList("action"))).score(60).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
 //        apolloClient.query(testQuery).enqueue(new ApolloCall.Callback<TestQuery.Data>() {
 //            @Override
 //            public void onResponse(@NotNull Response<TestQuery.Data> response) {
@@ -284,13 +284,19 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
 //                    buffer.append("\n~~~~~~~~~~~");
 //                    buffer.append("\n\n");
 //                }
+//                String animenames = anime.Page().media().get(1).title().toString();
+//                String imageURL = anime.Page().media().get(1).coverImage().medium().toString();
+//                String des = anime.Page().media().get(1).description();
+//                Log.e("testname",animenames);
+//                Log.e("testurl",imageURL);
+//                Log.e("testdes",des);
 //
-//                MainActivity.this.runOnUiThread(new Runnable() {
-//                    @Override public void run() {
-//                        TextView txtResponse = aniList;
-//                        txtResponse.setText(buffer.toString());
-//                    }
-//                });
+////                MainActivity.this.runOnUiThread(new Runnable() {
+////                    @Override public void run() {
+////                        TextView txtResponse = aniList;
+////                        txtResponse.setText(buffer.toString());
+////                    }
+////                });
 //
 //            }
 //
