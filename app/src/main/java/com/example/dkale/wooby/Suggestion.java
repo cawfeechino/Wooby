@@ -1,17 +1,26 @@
 package com.example.dkale.wooby;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import static android.support.constraint.Constraints.TAG;
+
+
 
 
 /**
@@ -71,7 +80,8 @@ public class Suggestion extends android.support.v4.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_suggestion, container, false);
-    }
+
+}
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -146,5 +156,14 @@ public class Suggestion extends android.support.v4.app.Fragment {
             }
         });
     }
+
+//        FloatingActionButton addButton = (FloatingActionButton) view.findViewById(R.id.fab);
+//        addButton.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            Intent intent = new Intent(getContext(), GenreSearch.class);
+//            startActivityForResult(intent, NEW_LOG_ACTIVITY_REQUEST_CODE);
+//        }
+//    });
 
 }
