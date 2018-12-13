@@ -9,7 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -32,6 +36,8 @@ public class Suggestion extends android.support.v4.app.Fragment {
     private String mParam1;
     private String mParam2;
     private Button writer;
+    private TextView titleName;
+    private ImageView imageView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -85,6 +91,9 @@ public class Suggestion extends android.support.v4.app.Fragment {
         super.onActivityCreated(savedInstanceState);
         buttonToWatch();
         buttonWatched();
+//        imageView = (ImageView) getView().findViewById(R.id.suggestionImage);
+//        Picasso.get().load("https://pm1.narvii.com/6561/78c92e781ab8f833b61fd85d0e8e82dc2a17076d_hq.jpg").into(imageView);
+//        initCard();
     }
 
     @Override
@@ -121,11 +130,13 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
     public void buttonToWatch(){
         writer = (Button) getView().findViewById(R.id.toWatchButton);
+        titleName = (TextView) getView().findViewById(R.id.titleName);
         writer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Added to 'To Watch' list", Toast.LENGTH_SHORT).show();
                 if(getActivity() != null){
+                    Log.e("If you can see this",titleName.getText().toString());
 //                    This is the suggestion activity. This is where the button listener is for the Add to "Watch Later" list. Uncomment the line below and add the proper parameters
 //                    ((MainActivity) getActivity()).writeToWatchDatabase("Sailor Moon","Its about a magical girl...","https://upload.wikimedia.org/wikipedia/en/e/e5/SMVolume1.jpg","https://en.wikipedia.org/wiki/Sailor_Moon");
                 }
@@ -135,16 +146,23 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
     public void buttonWatched(){
         writer = (Button) getView().findViewById(R.id.watchedButton);
+        titleName = (TextView) getView().findViewById(R.id.titleName);
         writer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Added to 'Watched' list", Toast.LENGTH_SHORT).show();
                 if(getActivity() != null){
+                    Log.e("If you can see this",titleName.getText().toString());
 //                    This is the suggestion activity. This is where the button listener is for the Add to "Watch" list. Uncomment the line below and add the proper parameters
 //                    ((MainActivity) getActivity()).writeWatchedDatabase("Sailor Moon","Its about a magical girl...","https://upload.wikimedia.org/wikipedia/en/e/e5/SMVolume1.jpg","https://en.wikipedia.org/wiki/Sailor_Moon");
                 }
             }
         });
     }
+
+//    public void initCard(){
+//        imageView = (ImageView) getView().findViewById(R.id.suggestionImage);
+//        Picasso.get().load("put link here").into(imageView);
+//    }
 
 }

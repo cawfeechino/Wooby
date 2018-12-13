@@ -135,14 +135,18 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
+        String myEmail = mAuth.getCurrentUser().getEmail();
+        int index = myEmail.indexOf('@');
+        String mDisplayName = myEmail.substring(0,index);
         if (id == R.id.menu_logout) {
             Log.e(TAG,"Logout selected");
-
             mAuth.getInstance().signOut();
-
+            return true;
+        }
+        else if(id == R.id.menu_refresh){
+            initDatabaseToWatch(mDisplayName);
+            initDatabaseWatched(mDisplayName);
             return true;
         }
         return super.onOptionsItemSelected(item);
