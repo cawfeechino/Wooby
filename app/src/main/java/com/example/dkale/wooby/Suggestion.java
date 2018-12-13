@@ -193,7 +193,12 @@ public class Suggestion extends android.support.v4.app.Fragment {
     public void apolloTest(){
 
         //final String[][] animethings = new String[1][1];
-        final String URLforImage;
+        aniName = (TextView) getView().findViewById(R.id.aniName);
+        anidescription = (TextView) getView().findViewById(R.id.aniDescription);
+        aniPic = (ImageView) getView().findViewById(R.id.aniImages);
+        aniUrl = (TextView) getView().findViewById(R.id.aniURL);
+        imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
         ApolloClient apolloClient = ApolloClient.builder().serverUrl(BASE_URL).okHttpClient(okHttpClient).build();
         final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList("action"))).score(60).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
@@ -202,30 +207,41 @@ public class Suggestion extends android.support.v4.app.Fragment {
             public void onResponse(@NotNull Response<anilist.TestQuery.Data> response) {
                 final StringBuffer buffer = new StringBuffer();
                 TestQuery.Data anime = response.data();
-//                for(int x = 0; x < anime.Page().media().size(); x++){
+                for(int x = 0; x < anime.Page().media().size(); x++){
+                    String animenames = anime.Page().media().get(x).title().romaji();
+                    String imageURL1 = anime.Page().media().get(x).coverImage().medium();
+                    String des = anime.Page().media().get(x).description();
+                    String animeURL = anime.Page().media().get(x).siteUrl();
+                    Log.e("testname",animenames);
+                    Log.e("testurl", imageURL1);
+                    Log.e("testdes",des);
+                    aniName.setText(animenames);
+                    anidescription.setText(Html.fromHtml(des).toString());
+                    aniUrl.setText(animeURL);
+                    imageURL.setText(imageURL1);
 //                    buffer.append("id: " + anime.Page().media().get(x).id());
 //                    buffer.append("title: " + anime.Page().media().get(x).title());
 //                    buffer.append("averageScore: " + anime.Page().media().get(x).averageScore());
 //                    buffer.append("\n~~~~~~~~~~~");
 //                    buffer.append("\n\n");
-//                }
-                String animenames = anime.Page().media().get(1).title().toString();
-                String imageURL1 = anime.Page().media().get(1).coverImage().medium();
-                String des = anime.Page().media().get(1).description();
-                String animeURL = anime.Page().media().get(1).siteUrl();
-                Log.e("testname",animenames);
-                Log.e("testurl", imageURL1);
-                Log.e("testdes",des);
-                aniName = (TextView) getView().findViewById(R.id.aniName);
-                anidescription = (TextView) getView().findViewById(R.id.aniDescription);
-                aniPic = (ImageView) getView().findViewById(R.id.aniImages);
-                aniUrl = (TextView) getView().findViewById(R.id.aniURL);
-                imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
-
-                aniName.setText(animenames);
-                anidescription.setText(Html.fromHtml(des).toString());
-                aniUrl.setText(animeURL);
-                imageURL.setText(imageURL1);
+                }
+//                String animenames = anime.Page().media().get(0).title().romaji();
+//                String imageURL1 = anime.Page().media().get(0).coverImage().medium();
+//                String des = anime.Page().media().get(0).description();
+//                String animeURL = anime.Page().media().get(0).siteUrl();
+//                Log.e("testname",animenames);
+//                Log.e("testurl", imageURL1);
+//                Log.e("testdes",des);
+//                aniName = (TextView) getView().findViewById(R.id.aniName);
+//                anidescription = (TextView) getView().findViewById(R.id.aniDescription);
+//                aniPic = (ImageView) getView().findViewById(R.id.aniImages);
+//                aniUrl = (TextView) getView().findViewById(R.id.aniURL);
+//                imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
+//
+//                aniName.setText(animenames);
+//                anidescription.setText(Html.fromHtml(des).toString());
+//                aniUrl.setText(animeURL);
+//                imageURL.setText(imageURL1);
             }
 
 
@@ -240,6 +256,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
         showImage = (Button) getView().findViewById(R.id.showImage);
         imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
         aniPic = (ImageView) getView().findViewById(R.id.aniImages);
+
         showImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
