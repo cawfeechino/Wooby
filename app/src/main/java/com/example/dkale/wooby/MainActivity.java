@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
 
 
 //    private TextView aniList;
-    final static String BASE_URL = "https://graphql.anilist.co";
+//    final static String BASE_URL = "https://graphql.anilist.co";
 
 
 //    public void apolloTest(){
