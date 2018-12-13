@@ -60,6 +60,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
     private TextView aniUrl;
     private TextView imageURL;
     private Button showImage;
+    private Button showSuggestion;
     private OnFragmentInteractionListener mListener;
 
     public Suggestion() {
@@ -264,6 +265,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
     }
     public void initPicasso(){
         showImage = (Button) getView().findViewById(R.id.showImage);
+        showSuggestion = (Button) getView().findViewById(R.id.showSudggestion);
         imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
         aniPic = (ImageView) getView().findViewById(R.id.aniImages);
 

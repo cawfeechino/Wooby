@@ -191,7 +191,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:elevation="0dp"
-            android:text="Show Sudggestion"
+            android:text="Show Suggestion"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/sp_maintenance_type"
