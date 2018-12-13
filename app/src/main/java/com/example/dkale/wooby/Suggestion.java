@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.TextInputLayout;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,6 +63,10 @@ public class Suggestion extends android.support.v4.app.Fragment {
     private TextView imageURL;
     private Button showImage;
     private OnFragmentInteractionListener mListener;
+    Spinner genreType;
+    String spinnerOption;
+    TextInputLayout MaitType;
+
 
     public Suggestion() {
         // Required empty public constructor
@@ -116,6 +122,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
         initPicasso();
         buttonToWatch();
         buttonWatched();
+        genreSelect();
     }
 
     @Override
@@ -275,7 +282,25 @@ public class Suggestion extends android.support.v4.app.Fragment {
                 Picasso.get().load(imageURL.getText().toString()).into(aniPic);
             }
         });
-            }
+    }
 
+    public String genreSelect(){
+        String selectedOption = String.valueOf(genreType.getSelectedItem());
+        String[] options = getResources().getStringArray(R.array.genre_options);
+        boolean check = false;
+        while(!check) {
+            if (selectedOption.equals("Genre")) {
+                MaitType.setError("Please select a genre");
+                check = false;
+
+            } else {
+                spinnerOption = selectedOption;
+                //Log.d("genre selected", "validateGenre: " + spinnerOption);
+                check = true;
+                return spinnerOption;
+            }
+        }
+        return spinnerOption;
+    }
 
 }
