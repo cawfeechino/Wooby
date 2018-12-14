@@ -63,6 +63,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
     private ImageView aniPic;
     private TextView aniUrl;
     private TextView imageURL;
+    private TextView aniScore;
     private Button showImage;
     private Button showSuggestion;
     private int counter = 0;
@@ -71,6 +72,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
     private String desc;
     private String animePageURL;
     private String animeImageURL;
+    private String animeScore;
     private String genreText;
 
     public Suggestion() {
@@ -235,10 +237,12 @@ public class Suggestion extends android.support.v4.app.Fragment {
                 String imageURL1 = anime.Page().media().get(rando).coverImage().large();
                 String des = anime.Page().media().get(rando).description();
                 String animeURL = anime.Page().media().get(rando).siteUrl();
+                String score = anime.Page().media().get(rando).averageScore().toString();
                 Log.e("testname",animenames);
                 Log.e("testurl", imageURL1);
                 Log.e("testdes",des);
                 aniName = (TextView) getView().findViewById(R.id.aniName);
+                aniScore = (TextView) getView().findViewById(R.id.aniScore);
                 anidescription = (TextView) getView().findViewById(R.id.aniDescription);
                 aniPic = (ImageView) getView().findViewById(R.id.aniImages);
                 aniUrl = (TextView) getView().findViewById(R.id.aniURL);
@@ -249,6 +253,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
                 desc = des;
                 animePageURL = animeURL;
                 animeImageURL = imageURL1;
+                animeScore = score;
             }
 
 
@@ -263,6 +268,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
         showSuggestion = (Button) getView().findViewById(R.id.showSudggestion);
         imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
         aniName = (TextView) getView().findViewById(R.id.aniName);
+        aniScore = (TextView) getView().findViewById(R.id.aniScore);
         aniPic = (ImageView) getView().findViewById(R.id.aniImages);
        final String temp = imageURL.getText().toString();
         showSuggestion.setOnClickListener(new View.OnClickListener(){
@@ -272,6 +278,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
                 apolloTest();
                 aniName.setText(name);
                 aniName.setMovementMethod(new ScrollingMovementMethod());
+                aniScore.setText(animeScore +"/100");
                 anidescription.setText(Html.fromHtml(desc).toString());
                 anidescription.setMovementMethod(new ScrollingMovementMethod());
                 aniUrl.setText(animePageURL);
