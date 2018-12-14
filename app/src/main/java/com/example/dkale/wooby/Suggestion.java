@@ -125,7 +125,9 @@ public class Suggestion extends android.support.v4.app.Fragment {
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        apolloTest();
+        if(counter == 0) {
+            apolloTest();
+        }
         initPicasso();
         buttonToWatch();
         buttonWatched();
