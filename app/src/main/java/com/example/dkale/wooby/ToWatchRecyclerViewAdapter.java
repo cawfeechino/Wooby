@@ -1,6 +1,8 @@
 package com.example.dkale.wooby;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -71,6 +73,8 @@ public class ToWatchRecyclerViewAdapter extends RecyclerView.Adapter<ToWatchRecy
                     // fragment is attached to one) that an item has been selected.
                     mListener.onToWatchListFragmentInteraction(holder.mItem);
                 }
+                Intent clicked = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                v.getContext().startActivity(clicked);
             }
         });
     }
