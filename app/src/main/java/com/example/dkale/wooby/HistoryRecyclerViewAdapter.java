@@ -2,6 +2,7 @@ package com.example.dkale.wooby;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         holder.mContentView.setText(mValues.get(position).getAnimeDescription());
         Picasso.get().load(mValues.get(position).getAnimeImage()).into(holder.mImageView);
         final String name = holder.mIdView.getText().toString();
+        final String url = mValues.get(position).animeURL;
         holder.mdeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +62,8 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
                     // fragment is attached to one) that an item has been selected.
                     mListener.onHistoryListFragmentInteraction(holder.mItem);
                 }
+                Intent clicked = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+                v.getContext().startActivity(clicked);
             }
         });
     }
