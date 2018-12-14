@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -35,6 +37,8 @@ import anilist.TestQuery;
 import anilist.type.MediaSort;
 import okhttp3.OkHttpClient;
 
+import static android.R.*;
+import static android.R.layout.*;
 import static android.support.constraint.Constraints.TAG;
 
 
@@ -74,6 +78,12 @@ public class Suggestion extends android.support.v4.app.Fragment {
     Random rand = new Random();
     Spinner genreType;
     String spinnerOption;
+    ArrayAdapter adapter;
+    Spinner genreTest;
+    private String[] genreList = {"action", "adventure","comedy","drama","ecchi",
+            "fantasy","horror", "mahou shoujo","mecha","music","mystery","psychological",
+            "romance","sci-fi","slice of life","sports","supernatural","thriller"};
+    String genreRecord;
 
 
     public Suggestion() {
@@ -105,6 +115,9 @@ public class Suggestion extends android.support.v4.app.Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
      //   apolloTest();
     }
 
@@ -112,6 +125,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        genreTest = (Spinner)findViewById(R.id.sp_maintenance_type);
         return inflater.inflate(R.layout.fragment_suggestion, container, false);
 
 }
@@ -126,6 +140,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         apolloTest();
         initPicasso();
         buttonToWatch();
@@ -219,12 +234,12 @@ public class Suggestion extends android.support.v4.app.Fragment {
         aniPic = (ImageView) getView().findViewById(R.id.aniImages);
         aniUrl = (TextView) getView().findViewById(R.id.aniURL);
         imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
-        genreSelect();
+        genreSelectTwo();
 
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
         ApolloClient apolloClient = ApolloClient.builder().serverUrl(BASE_URL).okHttpClient(okHttpClient).build();
-        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList(spinnerOption))).score(0).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
+        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList(genreRecord))).score(0).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
         apolloClient.query(testQuery).enqueue(new ApolloCall.Callback<anilist.TestQuery.Data>() {
             @Override
             public void onResponse(@NotNull Response<anilist.TestQuery.Data> response) {
@@ -284,70 +299,148 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
     }
 
-    private String genreSelect(){
-        String selectedOption;
-        int genreValue = (int) ((Math.random() * 18 + 1));
-        switch(genreValue){
-            case 1:
-                selectedOption = "Action";
-                break;
-            case 2:
-                selectedOption = "Adventure";
-                break;
-            case 3:
-                selectedOption = "Comedy";
-                break;
-            case 4:
-                selectedOption = "Drama";
-                break;
-            case 5:
-                selectedOption = "Ecchi";
-                break;
-            case 6:
-                selectedOption = "Fantasy";
-                break;
-            case 7:
-                selectedOption = "Horror";
-                break;
-            case 8:
-                selectedOption = "Mahou Shoujo";
-                break;
-            case 9:
-                selectedOption = "Mecha";
-                break;
-            case 10:
-                selectedOption = "Music";
-                break;
-            case 11:
-                selectedOption = "Mystery";
-                break;
-            case 12:
-                selectedOption = "Psychological";
-                break;
-            case 13:
-                selectedOption = "Romance";
-                break;
-            case 14:
-                selectedOption = "Sci-Fi";
-                break;
-            case 15:
-                selectedOption = "Slice of Life";
-                break;
-            case 16:
-                selectedOption = "Sports";
-                break;
-            case 17:
-                selectedOption = "Supernatural";
-                break;
-            case 18:
-                selectedOption = "Thriller";
-                break;
-            default:
-                selectedOption = "Action";
-                break;
-        }
-        spinnerOption = selectedOption;
-        return spinnerOption;
+//    private String genreSelect(){
+//        String selectedOption;
+//        int genreValue = (int) ((Math.random() * 18 + 1));
+//        switch(genreValue){
+//            case 1:
+//                selectedOption = "Action";
+//                break;
+//            case 2:
+//                selectedOption = "Adventure";
+//                break;
+//            case 3:
+//                selectedOption = "Comedy";
+//                break;
+//            case 4:
+//                selectedOption = "Drama";
+//                break;
+//            case 5:
+//                selectedOption = "Ecchi";
+//                break;
+//            case 6:
+//                selectedOption = "Fantasy";
+//                break;
+//            case 7:
+//                selectedOption = "Horror";
+//                break;
+//            case 8:
+//                selectedOption = "Mahou Shoujo";
+//                break;
+//            case 9:
+//                selectedOption = "Mecha";
+//                break;
+//            case 10:
+//                selectedOption = "Music";
+//                break;
+//            case 11:
+//                selectedOption = "Mystery";
+//                break;
+//            case 12:
+//                selectedOption = "Psychological";
+//                break;
+//            case 13:
+//                selectedOption = "Romance";
+//                break;
+//            case 14:
+//                selectedOption = "Sci-Fi";
+//                break;
+//            case 15:
+//                selectedOption = "Slice of Life";
+//                break;
+//            case 16:
+//                selectedOption = "Sports";
+//                break;
+//            case 17:
+//                selectedOption = "Supernatural";
+//                break;
+//            case 18:
+//                selectedOption = "Thriller";
+//                break;
+//            default:
+//                selectedOption = "Action";
+//                break;
+//        }
+//        spinnerOption = selectedOption;
+//        return spinnerOption;
+//    }
+
+    public String genreSelectTwo() {
+
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, genreList);
+        genreTest.setAdapter(adapter);
+
+        genreTest.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch(position) {
+                    case 0:
+                        genreRecord = "Action";
+                        break;
+                    case 1:
+                        genreRecord = "Adventure";
+                        break;
+                    case 2:
+                        genreRecord = "Comedy";
+                        break;
+                    case 3:
+                        genreRecord = "Drama";
+                        break;
+                    case 4:
+                        genreRecord = "Ecchi";
+                        break;
+                    case 5:
+                        genreRecord = "Fantasy";
+                        break;
+                    case 6:
+                        genreRecord = "Horror";
+                        break;
+                    case 7:
+                        genreRecord = "Mahou Shoujo";
+                        break;
+                    case 8:
+                        genreRecord = "Mecha";
+                        break;
+                    case 9:
+                        genreRecord = "Music";
+                        break;
+                    case 10:
+                        genreRecord = "Mystery";
+                        break;
+                    case 11:
+                        genreRecord = "Psychological";
+                        break;
+                    case 12:
+                        genreRecord = "Romance";
+                        break;
+                    case 13:
+                        genreRecord = "Sci-Fi";
+                        break;
+                    case 14:
+                        genreRecord = "Slice of Life";
+                        break;
+                    case 15:
+                        genreRecord = "Sports";
+                        break;
+                    case 16:
+                        genreRecord = "Supernatural";
+                        break;
+                    case 17:
+                        genreRecord = "Thriller";
+                        break;
+                    default:
+                        genreRecord = "Action";
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        return genreRecord;
     }
 
 

@@ -13,9 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="177dp"
-            android:prompt="@string/genre_options_prompt"
-            android:entries="@array/genre_options"/>
+            tools:layout_editor_absoluteY="177dp"/>
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/et_other_option"

@@ -7,29 +7,29 @@
     <string name="user_avatar">User Avatar</string>
     <string name="removeButton">Remove from list</string>
 
-    <string name="genre_options_prompt">Choose genre</string>
-    <string-array name="genre_options">
-        <item>Genre</item>
-        <item>Action</item>
-        <item>Adventure</item>
-        <item>Comedy</item>
-        <item>Drama</item>
-        <item>Ecchi</item>
-        <item>Fantasy</item>
-        <item>Horror</item>
-        <item>Mahou Shoujo</item>
-        <item>Mecha</item>
-        <item>Music</item>
-        <item>Mystery</item>
-        <item>Psychological</item>
-        <item>Romance</item>
-        <item>Sci-Fi</item>
-        <item>Slice of Life</item>
-        <item>Sports</item>
-        <item>Supernatural</item>
-        <item>Thriller</item>
-        <item>Other</item>
-    </string-array>
+    <!--<string name="genre_options_prompt">Choose genre</string>-->
+    <!--<string-array name="genre_options">-->
+        <!--<item>Genre</item>-->
+        <!--<item>Action</item>-->
+        <!--<item>Adventure</item>-->
+        <!--<item>Comedy</item>-->
+        <!--<item>Drama</item>-->
+        <!--<item>Ecchi</item>-->
+        <!--<item>Fantasy</item>-->
+        <!--<item>Horror</item>-->
+        <!--<item>Mahou Shoujo</item>-->
+        <!--<item>Mecha</item>-->
+        <!--<item>Music</item>-->
+        <!--<item>Mystery</item>-->
+        <!--<item>Psychological</item>-->
+        <!--<item>Romance</item>-->
+        <!--<item>Sci-Fi</item>-->
+        <!--<item>Slice of Life</item>-->
+        <!--<item>Sports</item>-->
+        <!--<item>Supernatural</item>-->
+        <!--<item>Thriller</item>-->
+        <!--<item>Other</item>-->
+    <!--</string-array>-->
     <string name="watchedButton">Move to \"Watched\" list</string>
     <string name="refresh">Refresh</string>
 </resources>

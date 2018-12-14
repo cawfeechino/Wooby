@@ -32,7 +32,8 @@ public class GenreSearch extends AppCompatActivity{
 
     private boolean validateGenre(){
         String selectedOption = String.valueOf(genreType.getSelectedItem());
-        String[] options = getResources().getStringArray(R.array.genre_options);
+
+        //String[] options = getResources().getStringArray(R.array.genre_options);
 
         if(selectedOption.equals("Choose an option...")){
             MaitType.setError("Please Select a Genre");
