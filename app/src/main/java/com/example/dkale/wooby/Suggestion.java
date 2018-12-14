@@ -28,6 +28,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import anilist.TestQuery;
 import anilist.type.MediaSort;
@@ -52,6 +53,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    Random rand = new Random();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -287,22 +289,92 @@ public class Suggestion extends android.support.v4.app.Fragment {
             }
         });
     }
+    //Spinner spinner = (Spinner)findViewById(R.id.sp_genre_type);
+//    private String genreSelect(){
+//        //String selectedOption = String.valueOf(genreType.getSelectedItem());
+//        //selectedOption = genreType.getSelectedItem().toString();
+//        String selectedOption = "Romance";
+//        String[] options = getResources().getStringArray(R.array.genre_options);
+//        boolean check = false;
+//        while (!check) {
+//            if (selectedOption.equals("Genre")) {
+//                MaitType.setError("Please Select a Genre");
+//                check = false;
+//            }
+//             else {
+//                spinnerOption = selectedOption;
+//                check = true;
+//            }
+//        }
+//
+//        return spinnerOption;
+//    }
     private String genreSelect(){
-        String selectedOption = String.valueOf(genreType.getSelectedItem());
-        String[] options = getResources().getStringArray(R.array.genre_options);
-        boolean check = false;
-        while (!check) {
-            if (selectedOption.equals("Choose an option...")) {
-                MaitType.setError("Please Select a Maintenance Option");
-                check = false;
-            }
-             else {
-                spinnerOption = selectedOption;
-                check = true;
-            }
+        String selectedOption;
+        int genreValue = rand.nextInt(18)+1;
+        switch(genreValue){
+            case 1:
+                selectedOption = "Action";
+                break;
+            case 2:
+                selectedOption = "Adventure";
+                break;
+            case 3:
+                selectedOption = "Comedy";
+                break;
+            case 4:
+                selectedOption = "Drama";
+                break;
+            case 5:
+                selectedOption = "Ecchi";
+                break;
+            case 6:
+                selectedOption = "Fantasy";
+                break;
+            case 7:
+                selectedOption = "Horror";
+                break;
+            case 8:
+                selectedOption = "Mahou Shoujo";
+                break;
+            case 9:
+                selectedOption = "Mecha";
+                break;
+            case 10:
+                selectedOption = "Music";
+                break;
+            case 11:
+                selectedOption = "Mystery";
+                break;
+            case 12:
+                selectedOption = "Psychological";
+                break;
+            case 13:
+                selectedOption = "Romance";
+                break;
+            case 14:
+                selectedOption = "Sci-Fi";
+                break;
+            case 15:
+                selectedOption = "Slice of Life";
+                break;
+            case 16:
+                selectedOption = "Sports";
+                break;
+            case 17:
+                selectedOption = "Supernatural";
+                break;
+            case 18:
+                selectedOption = "Thriller";
+                break;
+            default:
+                selectedOption = "Action";
+                break;
         }
-
+        spinnerOption = selectedOption;
         return spinnerOption;
     }
 
 }
+
+
