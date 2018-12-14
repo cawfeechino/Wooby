@@ -8,7 +8,8 @@
     android:orientation="vertical"
     android:padding="5dp"
     app:cardElevation="8dp"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="#b7b7b7">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

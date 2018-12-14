@@ -1,10 +1,13 @@
 package com.example.dkale.wooby;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,8 +21,10 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
 
     private final List<WatchedListItem> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private Context mContext;
 
-    public HistoryRecyclerViewAdapter(ArrayList<WatchedListItem> items, OnListFragmentInteractionListener listener) {
+    public HistoryRecyclerViewAdapter(Context context, ArrayList<WatchedListItem> items, OnListFragmentInteractionListener listener) {
+        this.mContext=context;
         mValues = items;
         mListener = listener;
     }
@@ -37,7 +42,16 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         holder.mIdView.setText(mValues.get(position).getAnimeName());
         holder.mContentView.setText(mValues.get(position).getAnimeDescription());
         Picasso.get().load(mValues.get(position).getAnimeImage()).into(holder.mImageView);
-//        Log.e("OnBindViewHolder ", mValues.get(position).getAnimeImage());
+        final String name = holder.mIdView.getText().toString();
+        holder.mdeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mContext instanceof MainActivity){
+                    ((MainActivity)mContext).removeFromWatchedList(name);
+
+                }
+            }
+        });
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +74,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
         public final TextView mIdView;
         public final TextView mContentView;
         public final ImageView mImageView;
+        public final Button mdeleteButton;
         public WatchedListItem mItem;
 
         public ViewHolder(View view) {
@@ -68,6 +83,7 @@ public class HistoryRecyclerViewAdapter extends RecyclerView.Adapter<HistoryRecy
             mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
             mImageView = (ImageView) view.findViewById(R.id.animeImage);
+            mdeleteButton = (Button) view.findViewById(R.id.deleteButton);
         }
 
         @Override

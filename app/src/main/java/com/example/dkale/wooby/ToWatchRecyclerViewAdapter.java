@@ -1,10 +1,12 @@
 package com.example.dkale.wooby;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,8 +20,10 @@ public class ToWatchRecyclerViewAdapter extends RecyclerView.Adapter<ToWatchRecy
 
     private final List<ToWatchListItem> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private Context mContext;
 
-    public ToWatchRecyclerViewAdapter(ArrayList<ToWatchListItem> items, OnListFragmentInteractionListener listener) {
+    public ToWatchRecyclerViewAdapter(Context context, ArrayList<ToWatchListItem> items, OnListFragmentInteractionListener listener) {
+        this.mContext=context;
         mValues = items;
         mListener = listener;
     }
@@ -37,7 +41,28 @@ public class ToWatchRecyclerViewAdapter extends RecyclerView.Adapter<ToWatchRecy
         holder.mIdView.setText(mValues.get(position).getAnimeName());
         holder.mContentView.setText(mValues.get(position).getAnimeDescription());
         Picasso.get().load(mValues.get(position).getAnimeImage()).into(holder.mImageView);
+        final String name = mValues.get(position).getAnimeName();
+        final String description = mValues.get(position).getAnimeDescription();
+        final String image = mValues.get(position).getAnimeImage().toString();
+        final String url = mValues.get(position).animeURL;
 //        Log.e("OnBindViewHolder ", mValues.get(position).getAnimeImage());
+        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mContext instanceof MainActivity){
+                    ((MainActivity)mContext).removeFromWatchLaterList(name);
+                }
+            }
+        });
+        holder.mTransferButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mContext instanceof MainActivity){
+                    ((MainActivity)mContext).writeWatchedDatabase(name,description,image,url);
+                    ((MainActivity)mContext).removeFromWatchLaterList(name);
+                }
+            }
+        });
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +85,8 @@ public class ToWatchRecyclerViewAdapter extends RecyclerView.Adapter<ToWatchRecy
         public final TextView mIdView;
         public final TextView mContentView;
         public final ImageView mImageView;
+        public final Button mDeleteButton;
+        public final Button mTransferButton;
         public ToWatchListItem mItem;
 
         public ViewHolder(View view) {
@@ -68,6 +95,8 @@ public class ToWatchRecyclerViewAdapter extends RecyclerView.Adapter<ToWatchRecy
             mIdView = (TextView) view.findViewById(R.id.item_numberToWatch);
             mContentView = (TextView) view.findViewById(R.id.contentToWatch);
             mImageView = (ImageView) view.findViewById(R.id.animeImageToWatch);
+            mDeleteButton = (Button) view.findViewById(R.id.deleteButtonWatchLater);
+            mTransferButton = (Button) view.findViewById(R.id.transferWatchedList);
         }
 
         @Override
