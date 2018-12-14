@@ -61,7 +61,12 @@ public class Suggestion extends android.support.v4.app.Fragment {
     private TextView imageURL;
     private Button showImage;
     private Button showSuggestion;
+    private int counter = 0;
     private OnFragmentInteractionListener mListener;
+    private String name;
+    private String desc;
+    private String animePageURL;
+    private String animeImageURL;
 
     public Suggestion() {
         // Required empty public constructor
@@ -198,8 +203,6 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
 
     public void apolloTest(){
-
-        //final String[][] animethings = new String[1][1];
         aniName = (TextView) getView().findViewById(R.id.aniName);
         anidescription = (TextView) getView().findViewById(R.id.aniDescription);
         aniPic = (ImageView) getView().findViewById(R.id.aniImages);
@@ -209,30 +212,12 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
         ApolloClient apolloClient = ApolloClient.builder().serverUrl(BASE_URL).okHttpClient(okHttpClient).build();
-        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList("slice of life"))).score(30).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
+        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList("slice of life"))).score(0).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
         apolloClient.query(testQuery).enqueue(new ApolloCall.Callback<anilist.TestQuery.Data>() {
             @Override
             public void onResponse(@NotNull Response<anilist.TestQuery.Data> response) {
                 final StringBuffer buffer = new StringBuffer();
                 TestQuery.Data anime = response.data();
-//                for(int x = 0; x < anime.Page().media().size(); x++){
-//                    String animenames = anime.Page().media().get(x).title().romaji();
-//                    String imageURL1 = anime.Page().media().get(x).coverImage().medium();
-//                    String des = anime.Page().media().get(x).description();
-//                    String animeURL = anime.Page().media().get(x).siteUrl();
-//                    Log.e("testname",animenames);
-//                    Log.e("testurl", imageURL1);
-//                    Log.e("testdes",des);
-//                    aniName.setText(animenames);
-//                    anidescription.setText(Html.fromHtml(des).toString());
-//                    aniUrl.setText(animeURL);
-//                    imageURL.setText(imageURL1);
-//                    buffer.append("id: " + anime.Page().media().get(x).id());
-//                    buffer.append("title: " + anime.Page().media().get(x).title());
-//                    buffer.append("averageScore: " + anime.Page().media().get(x).averageScore());
-//                    buffer.append("\n~~~~~~~~~~~");
-//                    buffer.append("\n\n");
-//                }
                 int max = anime.Page().media().size() - 1;
                 int min = 0;
                 int rando = (int) (Math.random() * max + min);
@@ -249,10 +234,11 @@ public class Suggestion extends android.support.v4.app.Fragment {
                 aniUrl = (TextView) getView().findViewById(R.id.aniURL);
                 imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
 
-                aniName.setText(animenames);
-                anidescription.setText(Html.fromHtml(des).toString());
-                aniUrl.setText(animeURL);
-                imageURL.setText(imageURL1);
+
+                name = animenames;
+                desc = des;
+                animePageURL = animeURL;
+                animeImageURL = imageURL1;
             }
 
 
@@ -264,19 +250,25 @@ public class Suggestion extends android.support.v4.app.Fragment {
         });
     }
     public void initPicasso(){
-        showImage = (Button) getView().findViewById(R.id.showImage);
         showSuggestion = (Button) getView().findViewById(R.id.showSudggestion);
         imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
         aniPic = (ImageView) getView().findViewById(R.id.aniImages);
+       final String temp = imageURL.getText().toString();
+        showSuggestion.setOnClickListener(new View.OnClickListener(){
 
-        showImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String temp = imageURL.getText().toString();
-                Log.e("shit2",temp);
-                Picasso.get().load(imageURL.getText().toString()).into(aniPic);
+                apolloTest();
+                aniName.setText(name);
+                anidescription.setText(Html.fromHtml(desc).toString());
+                aniUrl.setText(animePageURL);
+                imageURL.setText(animeImageURL);
+                Picasso.get().load(animeImageURL).into(aniPic);
+                counter = 1;
             }
+
         });
+
             }
 
 
