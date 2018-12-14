@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 import anilist.TestQuery;
 import anilist.type.MediaSort;
@@ -69,6 +71,10 @@ public class Suggestion extends android.support.v4.app.Fragment {
     private String desc;
     private String animePageURL;
     private String animeImageURL;
+    Random rand = new Random();
+    Spinner genreType;
+    String spinnerOption;
+
 
     public Suggestion() {
         // Required empty public constructor
@@ -120,6 +126,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        genreSelect();
         apolloTest();
         initPicasso();
         buttonToWatch();
@@ -217,7 +224,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
         ApolloClient apolloClient = ApolloClient.builder().serverUrl(BASE_URL).okHttpClient(okHttpClient).build();
-        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList("slice of life"))).score(0).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
+        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList(spinnerOption))).score(0).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
         apolloClient.query(testQuery).enqueue(new ApolloCall.Callback<anilist.TestQuery.Data>() {
             @Override
             public void onResponse(@NotNull Response<anilist.TestQuery.Data> response) {
@@ -274,7 +281,74 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
         });
 
-            }
+    }
+
+    private String genreSelect(){
+        String selectedOption;
+        int genreValue = (int) ((Math.random() * 18 + 1));
+        switch(genreValue){
+            case 1:
+                selectedOption = "Action";
+                break;
+            case 2:
+                selectedOption = "Adventure";
+                break;
+            case 3:
+                selectedOption = "Comedy";
+                break;
+            case 4:
+                selectedOption = "Drama";
+                break;
+            case 5:
+                selectedOption = "Ecchi";
+                break;
+            case 6:
+                selectedOption = "Fantasy";
+                break;
+            case 7:
+                selectedOption = "Horror";
+                break;
+            case 8:
+                selectedOption = "Mahou Shoujo";
+                break;
+            case 9:
+                selectedOption = "Mecha";
+                break;
+            case 10:
+                selectedOption = "Music";
+                break;
+            case 11:
+                selectedOption = "Mystery";
+                break;
+            case 12:
+                selectedOption = "Psychological";
+                break;
+            case 13:
+                selectedOption = "Romance";
+                break;
+            case 14:
+                selectedOption = "Sci-Fi";
+                break;
+            case 15:
+                selectedOption = "Slice of Life";
+                break;
+            case 16:
+                selectedOption = "Sports";
+                break;
+            case 17:
+                selectedOption = "Supernatural";
+                break;
+            case 18:
+                selectedOption = "Thriller";
+                break;
+            default:
+                selectedOption = "Action";
+                break;
+        }
+        spinnerOption = selectedOption;
+        return spinnerOption;
+    }
+
 
 
 }
