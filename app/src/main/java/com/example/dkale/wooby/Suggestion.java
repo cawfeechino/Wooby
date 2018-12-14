@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import com.apollographql.apollo.ApolloCall;
 import com.apollographql.apollo.ApolloClient;
 import com.apollographql.apollo.api.Response;
@@ -122,6 +124,9 @@ public class Suggestion extends android.support.v4.app.Fragment {
         initPicasso();
         buttonToWatch();
         buttonWatched();
+//        imageView = (ImageView) getView().findViewById(R.id.suggestionImage);
+//        Picasso.get().load("https://pm1.narvii.com/6561/78c92e781ab8f833b61fd85d0e8e82dc2a17076d_hq.jpg").into(imageView);
+//        initCard();
     }
 
     @Override

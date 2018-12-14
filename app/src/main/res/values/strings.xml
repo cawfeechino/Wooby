@@ -30,4 +30,6 @@
         <item>Thriller</item>
         <item>Other</item>
     </string-array>
+    <string name="watchedButton">Move to \"Watched\" list</string>
+    <string name="refresh">Refresh</string>
 </resources>

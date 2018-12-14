@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dkale.wooby.dummy.DummyContent;
 import com.google.firebase.FirebaseApp;
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
                     String myEmail = mAuth.getCurrentUser().getEmail();
                     int index = myEmail.indexOf('@');
                     String mDisplayName = myEmail.substring(0,index);
+//                    removeFromWatchedList("Sailor Moon");
                     initDatabaseWatched(mDisplayName);
                     initDatabaseToWatch(mDisplayName);
                 } else {
@@ -135,14 +137,19 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
+        String myEmail = mAuth.getCurrentUser().getEmail();
+        int index = myEmail.indexOf('@');
+        String mDisplayName = myEmail.substring(0,index);
         if (id == R.id.menu_logout) {
             Log.e(TAG,"Logout selected");
-
             mAuth.getInstance().signOut();
-
+            return true;
+        }
+        else if(id == R.id.menu_refresh){
+//            initDatabaseToWatch(mDisplayName);
+//            initDatabaseWatched(mDisplayName);
+            initFirebase();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -262,6 +269,23 @@ public class MainActivity extends AppCompatActivity implements ChatMessageFragme
         ref.child(animeName).child("animeURL").setValue(animeURL);
     }
 
+    public void removeFromWatchedList(String animeName){
+        String myEmail = mAuth.getCurrentUser().getEmail();
+        int index = myEmail.indexOf('@');
+        String mDisplayName = myEmail.substring(0,index);
+        DatabaseReference ref = mDatabase.getReference("userWatchedList").child(mDisplayName);
+        ref.child(animeName).removeValue();
+//        Toast.makeText("Watched list", "removed item", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "removed item", Toast.LENGTH_SHORT).show();
+    }
+
+    public void removeFromWatchLaterList(String animeName){
+        String myEmail = mAuth.getCurrentUser().getEmail();
+        int index = myEmail.indexOf('@');
+        String mDisplayName = myEmail.substring(0,index);
+        DatabaseReference ref = mDatabase.getReference("userToWatchList").child(mDisplayName);
+        ref.child(animeName).removeValue();
+    }
 
 //    private TextView aniList;
 //    final static String BASE_URL = "https://graphql.anilist.co";
