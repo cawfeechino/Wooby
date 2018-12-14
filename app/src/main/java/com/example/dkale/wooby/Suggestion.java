@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -267,6 +268,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
                 apolloTest();
                 aniName.setText(name);
                 anidescription.setText(Html.fromHtml(desc).toString());
+                anidescription.setMovementMethod(new ScrollingMovementMethod());
                 aniUrl.setText(animePageURL);
                 imageURL.setText(animeImageURL);
                 Picasso.get().load(animeImageURL).into(aniPic);
@@ -274,7 +276,6 @@ public class Suggestion extends android.support.v4.app.Fragment {
             }
 
         });
-
         aniName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
