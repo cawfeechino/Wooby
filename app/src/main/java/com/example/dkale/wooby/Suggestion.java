@@ -271,6 +271,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
             public void onClick(View v) {
                 apolloTest();
                 aniName.setText(name);
+                aniName.setMovementMethod(new ScrollingMovementMethod());
                 anidescription.setText(Html.fromHtml(desc).toString());
                 anidescription.setMovementMethod(new ScrollingMovementMethod());
                 aniUrl.setText(animePageURL);
