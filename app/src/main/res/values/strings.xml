@@ -9,7 +9,7 @@
 
     <string name="genre_options_prompt">Choose genre</string>
     <string-array name="genre_options">
-        <item>Genre</item>
+        <!--<item>Genre</item>-->
         <item>Action</item>
         <item>Adventure</item>
         <item>Comedy</item>

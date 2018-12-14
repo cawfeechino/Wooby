@@ -67,6 +67,9 @@ public class Suggestion extends android.support.v4.app.Fragment {
     String spinnerOption;
     TextInputLayout MaitType;
 
+//    Spinner spinner = (Spinner) findViewById(R.id.spinner);
+//spinner.setOnItemSelectedListener(this);
+
 
     public Suggestion() {
         // Required empty public constructor
@@ -118,11 +121,12 @@ public class Suggestion extends android.support.v4.app.Fragment {
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        Log.d(TAG, "onActivityCreated: ");
+        genreSelect();
         apolloTest();
         initPicasso();
         buttonToWatch();
         buttonWatched();
-        genreSelect();
     }
 
     @Override
@@ -215,7 +219,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
         ApolloClient apolloClient = ApolloClient.builder().serverUrl(BASE_URL).okHttpClient(okHttpClient).build();
-        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList("slice of life"))).score(30).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
+        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList(spinnerOption))).score(30).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
         apolloClient.query(testQuery).enqueue(new ApolloCall.Callback<anilist.TestQuery.Data>() {
             @Override
             public void onResponse(@NotNull Response<anilist.TestQuery.Data> response) {
@@ -283,23 +287,21 @@ public class Suggestion extends android.support.v4.app.Fragment {
             }
         });
     }
-
-    public String genreSelect(){
+    private String genreSelect(){
         String selectedOption = String.valueOf(genreType.getSelectedItem());
         String[] options = getResources().getStringArray(R.array.genre_options);
         boolean check = false;
-        while(!check) {
-            if (selectedOption.equals("Genre")) {
-                MaitType.setError("Please select a genre");
+        while (!check) {
+            if (selectedOption.equals("Choose an option...")) {
+                MaitType.setError("Please Select a Maintenance Option");
                 check = false;
-
-            } else {
+            }
+             else {
                 spinnerOption = selectedOption;
-                //Log.d("genre selected", "validateGenre: " + spinnerOption);
                 check = true;
-                return spinnerOption;
             }
         }
+
         return spinnerOption;
     }
 
