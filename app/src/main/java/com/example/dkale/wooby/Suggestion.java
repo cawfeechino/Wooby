@@ -252,6 +252,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
     public void initPicasso(){
         showSuggestion = (Button) getView().findViewById(R.id.showSudggestion);
         imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
+        aniName = (TextView) getView().findViewById(R.id.aniName);
         aniPic = (ImageView) getView().findViewById(R.id.aniImages);
        final String temp = imageURL.getText().toString();
         showSuggestion.setOnClickListener(new View.OnClickListener(){
@@ -267,6 +268,14 @@ public class Suggestion extends android.support.v4.app.Fragment {
                 counter = 1;
             }
 
+        });
+
+        aniName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent clicked = new Intent(Intent.ACTION_VIEW, Uri.parse(aniUrl.getText().toString()));
+                v.getContext().startActivity(clicked);
+            }
         });
 
             }
