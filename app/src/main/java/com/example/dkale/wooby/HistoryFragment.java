@@ -69,7 +69,7 @@ public class HistoryFragment extends android.support.v4.app.Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            mAdapter = new HistoryRecyclerViewAdapter(context,mHistoryArray, mListener);
+            mAdapter = new HistoryRecyclerViewAdapter(mHistoryArray, mListener);
             recyclerView.setAdapter(mAdapter);
         }
         return view;

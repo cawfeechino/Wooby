@@ -122,9 +122,6 @@ public class Suggestion extends android.support.v4.app.Fragment {
         initPicasso();
         buttonToWatch();
         buttonWatched();
-//        imageView = (ImageView) getView().findViewById(R.id.suggestionImage);
-//        Picasso.get().load("https://pm1.narvii.com/6561/78c92e781ab8f833b61fd85d0e8e82dc2a17076d_hq.jpg").into(imageView);
-//        initCard();
     }
 
     @Override
@@ -253,6 +250,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
         });
     }
     public void initPicasso(){
+        showSuggestion = (Button) getView().findViewById(R.id.showSudggestion);
         imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
         aniPic = (ImageView) getView().findViewById(R.id.aniImages);
        final String temp = imageURL.getText().toString();
@@ -274,5 +272,4 @@ public class Suggestion extends android.support.v4.app.Fragment {
             }
 
 
-        showSuggestion = (Button) getView().findViewById(R.id.showSudggestion);
 }

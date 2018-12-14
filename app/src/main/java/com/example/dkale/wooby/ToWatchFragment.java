@@ -72,7 +72,7 @@ public class ToWatchFragment extends android.support.v4.app.Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            mAdapter = new ToWatchRecyclerViewAdapter(context, mToWatchList, mListener);
+            mAdapter = new ToWatchRecyclerViewAdapter(mToWatchList, mListener);
             recyclerView.setAdapter(mAdapter);
         }
         return view;
