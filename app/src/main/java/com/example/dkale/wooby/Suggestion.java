@@ -269,13 +269,13 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
             @Override
             public void onClick(View v) {
+                apolloTest();
                 aniName.setText(name);
                 anidescription.setText(Html.fromHtml(desc).toString());
                 anidescription.setMovementMethod(new ScrollingMovementMethod());
                 aniUrl.setText(animePageURL);
                 imageURL.setText(animeImageURL);
                 Picasso.get().load(animeImageURL).into(aniPic);
-                apolloTest();
                 counter = 1;
             }
 
