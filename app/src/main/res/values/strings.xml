@@ -9,7 +9,7 @@
 
     <string name="genre_options_prompt">Choose genre</string>
     <string-array name="genre_options">
-        <item>Genre</item>
+        <!--<item>Genre</item>-->
         <item>Action</item>
         <item>Adventure</item>
         <item>Comedy</item>
@@ -28,7 +28,7 @@
         <item>Sports</item>
         <item>Supernatural</item>
         <item>Thriller</item>
-        <item>Other</item>
+        <!--<item>Other</item>-->
     </string-array>
     <string name="watchedButton">Move to \"Watched\" list</string>
     <string name="refresh">Refresh</string>

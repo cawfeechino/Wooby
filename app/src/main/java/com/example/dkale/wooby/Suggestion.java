@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +71,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
     private String desc;
     private String animePageURL;
     private String animeImageURL;
+    private String genreText;
 
     public Suggestion() {
         // Required empty public constructor
@@ -209,6 +211,8 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
 
     public void apolloTest(){
+        Spinner spinner = (Spinner) getView().findViewById(R.id.sp_maintenance_type);
+        genreText = spinner.getSelectedItem().toString();
         aniName = (TextView) getView().findViewById(R.id.aniName);
         anidescription = (TextView) getView().findViewById(R.id.aniDescription);
         aniPic = (ImageView) getView().findViewById(R.id.aniImages);
@@ -218,7 +222,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
         ApolloClient apolloClient = ApolloClient.builder().serverUrl(BASE_URL).okHttpClient(okHttpClient).build();
-        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList("slice of life"))).score(0).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
+        final anilist.TestQuery testQuery = anilist.TestQuery.builder().genre(new ArrayList<String>(Arrays.asList(genreText))).score(0).sort(new ArrayList<MediaSort>(Arrays.asList(MediaSort.SCORE_DESC))).build();
         apolloClient.query(testQuery).enqueue(new ApolloCall.Callback<anilist.TestQuery.Data>() {
             @Override
             public void onResponse(@NotNull Response<anilist.TestQuery.Data> response) {
@@ -265,13 +269,13 @@ public class Suggestion extends android.support.v4.app.Fragment {
 
             @Override
             public void onClick(View v) {
-                apolloTest();
                 aniName.setText(name);
                 anidescription.setText(Html.fromHtml(desc).toString());
                 anidescription.setMovementMethod(new ScrollingMovementMethod());
                 aniUrl.setText(animePageURL);
                 imageURL.setText(animeImageURL);
                 Picasso.get().load(animeImageURL).into(aniPic);
+                apolloTest();
                 counter = 1;
             }
 
