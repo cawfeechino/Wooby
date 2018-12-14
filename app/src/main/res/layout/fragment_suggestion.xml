@@ -16,7 +16,7 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="415dp"
+            android:layout_height="486dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="76dp"
             android:layout_marginEnd="8dp"
@@ -34,8 +34,8 @@
             app:layout_constraintVertical_bias="0.345">
 
             <android.support.constraint.ConstraintLayout
-                android:layout_width="397dp"
-                android:layout_height="379dp"
+                android:layout_width="414dp"
+                android:layout_height="422dp"
                 android:visibility="visible"
                 tools:layout_editor_absoluteX="9dp"
                 tools:layout_editor_absoluteY="13dp">
@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
-                    android:layout_marginEnd="48dp"
+                    android:layout_marginEnd="68dp"
                     android:layout_marginBottom="8dp"
                     android:elevation="0dp"
                     android:text="Watch Later"
@@ -88,14 +88,16 @@
                     android:layout_height="123dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="48dp"
+                    android:layout_marginEnd="68dp"
                     android:layout_marginBottom="8dp"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.873"
                     app:layout_constraintStart_toEndOf="@+id/animeImageToWatch"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.079" />
+                    app:layout_constraintVertical_bias="0.081" />
 
                 <TextView
                     android:id="@+id/aimageURL2"
@@ -110,7 +112,7 @@
                 <TextView
                     android:id="@+id/aniDescription"
                     android:layout_width="335dp"
-                    android:layout_height="120dp"
+                    android:layout_height="151dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="200dp"
                     android:layout_marginEnd="8dp"
@@ -118,14 +120,15 @@
                     android:scrollbars="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.015"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.058" />
+                    app:layout_constraintVertical_bias="0.063" />
 
                 <ImageView
                     android:id="@+id/aniImages"
-                    android:layout_width="136dp"
-                    android:layout_height="185dp"
+                    android:layout_width="131dp"
+                    android:layout_height="192dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
@@ -149,7 +152,7 @@
 
         <Spinner
             android:id="@+id/sp_maintenance_type"
-            android:layout_width="172dp"
+            android:layout_width="167dp"
             android:layout_height="68dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
