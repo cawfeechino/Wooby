@@ -126,7 +126,6 @@ public class Suggestion extends android.support.v4.app.Fragment {
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        genreSelect();
         apolloTest();
         initPicasso();
         buttonToWatch();
@@ -220,6 +219,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
         aniPic = (ImageView) getView().findViewById(R.id.aniImages);
         aniUrl = (TextView) getView().findViewById(R.id.aniURL);
         imageURL = (TextView) getView().findViewById(R.id.aimageURL2);
+        genreSelect();
 
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
@@ -230,6 +230,7 @@ public class Suggestion extends android.support.v4.app.Fragment {
             public void onResponse(@NotNull Response<anilist.TestQuery.Data> response) {
                 final StringBuffer buffer = new StringBuffer();
                 TestQuery.Data anime = response.data();
+                Log.d("String", "onResponse: " + spinnerOption);
                 int max = anime.Page().media().size() - 1;
                 int min = 0;
                 int rando = (int) (Math.random() * max + min);
